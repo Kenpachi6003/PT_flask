@@ -6,9 +6,9 @@
 [+] add search to workouts
 [+] if I search a body_part give me more than one result
 [-] create log in and create account button
-[-]
-[-]
-[-]
+[+]if i am logged in it should redirect me to workouts
+[+]make sure i am in session
+[-]create a delete workout function
 [-]
 [-]
 [-]

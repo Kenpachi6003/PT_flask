@@ -5,9 +5,9 @@ db = SQLAlchemy()
 
 class Workouts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    workout_name = db.Column(db.String)
+    workout_name = db.Column(db.String, nullable=False)
     body_part = db.Column(db.String)
-    muscle_targeted = db.Column(db.String)
+    muscle_targeted = db.Column(db.String, nullable=True)
 
 
 class User(db.Model):

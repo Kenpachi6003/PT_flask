@@ -50,6 +50,13 @@ def search(searched):
 
     return exercises
 
+def workout_exists(workout_name):
+    workouts = Workouts.query.all()
+
+    for workout in workouts:
+        if workout_name == workout.workout_name:
+            return True
+    return False
 
 def create_workout(workout_name, body_part, muscle_targeted):
     workout = Workouts(workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted)
@@ -57,12 +64,17 @@ def create_workout(workout_name, body_part, muscle_targeted):
     db.session.commit()
     return workout
 
+def remove_workout(workout_name):
+    workout = Workouts.query.filter_by(workout_name=workout_name).first()
+    db.session.delete(workout)
+    return db.session.commit()
+        
+
 def user_exists(username):
     users = User.query.all()
 
     for account in users:
         if username == account.username:
-            breakpoint
             return True
     return False
 

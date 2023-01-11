@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from models import Workouts, User, db
 from info_to_insert import *
-from workout_functions import search, create_workout, user_exists, create_user
+from workout_functions import search, create_workout, user_exists, create_user, remove_workout, workout_exists
 
 
 
@@ -41,6 +41,19 @@ def add_workout():
         return redirect(url_for("workouts"))
     else:
         return render_template("add_workout.html")
+
+@app.route("/delete_workout", methods=["GET", "POST"])
+def delete_workout():
+    if request.method == "POST":
+        workout_name = request.form["workout_name"]
+
+        if workout_exists(workout_name):
+            remove_workout(workout_name)
+
+
+        return redirect(url_for("workouts"))
+    else:
+        return render_template("delete_workout.html")
 
 
 @app.route('/routines')
@@ -93,7 +106,7 @@ def create_account():
         name = request.form["name"]
         password = request.form['password']
 
-        if user_exists(username):  
+        if user_exists(username, User):  
             flash("You already have an account")
             return redirect(url_for("login"))
 
