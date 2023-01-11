@@ -1,0 +1,10 @@
+
+h1, li, p, table {
+    text-align: center;
+}
+a { color:dodgerblue;}
+h1{ font-size: 50; color:rgb(148, 145, 145);}
+body{background-color: darkslategray;}
+
+input {font-size: 25;}
+table{ border: 2 ;background-color: #efefef;}
