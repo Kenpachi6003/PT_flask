@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from models import *
 from info_to_insert import *
-from starting_app import *
+
 
 
 def delete_workouts():
@@ -36,3 +36,38 @@ def add_all_exercises(exercises, body_part, muscle_targeted=None):
                 print(exercise)
     
     return db.session.commit()
+
+
+def search(searched):
+    workouts = Workouts.query.all()
+    exercises = []
+
+    for exercise in workouts:
+        if searched in exercise.workout_name:
+            exercises.append(exercise)
+        elif searched in exercise.body_part:
+            exercises.append(exercise)
+
+    return exercises
+
+
+def create_workout(workout_name, body_part, muscle_targeted):
+    workout = Workouts(workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted)
+    db.session.add(workout)
+    db.session.commit()
+    return workout
+
+def user_exists(username):
+    users = User.query.all()
+
+    for account in users:
+        if username == account.username:
+            breakpoint
+            return True
+    return False
+
+def create_user(username, email, name, password):
+    user = User(username=username, email=email, name=name, password=password )
+    db.session.add(user)
+    db.session.commit()
+    return user
