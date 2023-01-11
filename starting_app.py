@@ -17,42 +17,51 @@ bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
 
 
+def search(searched):
+    workouts = Workouts.query.all()
+    exercises = []
+
+    for exercise in workouts:
+        if searched in exercise.workout_name:
+            exercises.append(exercise)
+        elif searched in exercise.body_part:
+            exercises.append(exercise)
+
+    return exercises
+
+
 @app.route('/workouts', methods=['GET', 'POST'])
 def workouts():
     exercises = []
     if "user_id" in session:
         if request.method == "POST":
             searched = request.form["search"]
-            exercise_list = Workouts.query.all()
-
-            for exercise in exercise_list:
-
-                if searched == exercise.workout_name:
-                    exercises.append(exercise)
-                    return render_template("workouts.html", values=exercises)
-                elif searched == exercise.body_part:
-                    exercises.append(exercise)
-            return render_template("workouts.html", values = exercises)
-
+            exercises = search(searched)
+            return render_template("workouts.html", values=exercises)
 
         return render_template('workouts.html', values=Workouts.query.all())
     else:
         return redirect(url_for("login"))
 
+
+def create_workout(workout_name, body_part, muscle_targeted):
+    workout = Workouts(workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted)
+    db.session.add(workout)
+    db.session.commit()
+    return workout
+
+
 @app.route("/add_workout", methods=['POST', 'GET'])
 def add_workout():
-
     if request.method =="POST":
         workout_name = request.form['workout_name']
         body_part = request.form['body_part']
         muscle_targeted = request.form['muscle_targeted']
-        
-        workout = Workouts(workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted)
-        db.session.add(workout)
-        db.session.commit()
+        create_workout(workout_name, body_part, muscle_targeted)
         return redirect(url_for("workouts"))
     else:
         return render_template("add_workout.html")
+
 
 @app.route('/routines')
 def routines():
@@ -66,10 +75,11 @@ def routines():
 def home():
     return render_template("index.html")
 
+
 @app.route("/view")
 def view():
-    
     return render_template("view.html", values=User.query.all())
+
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -89,7 +99,6 @@ def login():
         return redirect(url_for("workouts"))
 
     return render_template("login.html")
-        
     
 
 @app.route("/create_account", methods=["POST", "GET"])
@@ -118,9 +127,6 @@ def create_account():
     return render_template("create_account.html")
 
 
-def logged_in(user):
-    return user is not None 
-
 @app.route("/logout")
 def logout():
     if "user_id" in session:
@@ -136,9 +142,5 @@ if __name__ == "__main__":
     with app.app_context():
         print("Creating database ", db)
         db.create_all()
-        # workout = Workouts(workout_name="Push Ups")
-        # db.session.add(workout)
-        # db.session.commit()
 
         app.run(debug=True)
-
