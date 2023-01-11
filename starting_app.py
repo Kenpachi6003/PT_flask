@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from models import Workouts, User, db
 from info_to_insert import *
+from workout_functions import search, create_workout, user_exists, create_user
 
 
 
@@ -17,22 +18,8 @@ bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
 
 
-def search(searched):
-    workouts = Workouts.query.all()
-    exercises = []
-
-    for exercise in workouts:
-        if searched in exercise.workout_name:
-            exercises.append(exercise)
-        elif searched in exercise.body_part:
-            exercises.append(exercise)
-
-    return exercises
-
-
 @app.route('/workouts', methods=['GET', 'POST'])
 def workouts():
-    exercises = []
     if "user_id" in session:
         if request.method == "POST":
             searched = request.form["search"]
@@ -42,13 +29,6 @@ def workouts():
         return render_template('workouts.html', values=Workouts.query.all())
     else:
         return redirect(url_for("login"))
-
-
-def create_workout(workout_name, body_part, muscle_targeted):
-    workout = Workouts(workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted)
-    db.session.add(workout)
-    db.session.commit()
-    return workout
 
 
 @app.route("/add_workout", methods=['POST', 'GET'])
@@ -83,6 +63,8 @@ def view():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    if "user_id" in session:
+        return redirect(url_for("workouts"))
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
@@ -103,27 +85,22 @@ def login():
 
 @app.route("/create_account", methods=["POST", "GET"])
 def create_account():
+    if "user_id" in session:
+        return redirect(url_for("workouts"))
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
         name = request.form["name"]
         password = request.form['password']
-        users = User.query.all()
 
-        for account in users:
-            if username == account.username:
-               
-                flash("You already have an account")
-                return redirect(url_for("login"))
+        if user_exists(username):  
+            flash("You already have an account")
+            return redirect(url_for("login"))
 
-
-        user = User(username=username, email=email, name=name, password=password )
-        db.session.add(user)
-        db.session.commit()
-
-        flash("email was saved")
-
-        return redirect(url_for("login"))
+        else:
+            create_user(username, email, name, password)
+            flash("Account was created")
+            return redirect(url_for("login"))
     return render_template("create_account.html")
 
 
