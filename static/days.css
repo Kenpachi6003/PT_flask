@@ -1,0 +1,5 @@
+h1 {background-color: brown; max-width: 600px;}
+thead,th {background-color: gray; width: 200px;}
+th.one {background-color: black; color: white;}
+
+table,th,td {border-width: 2px; border-style: solid;}

@@ -4,6 +4,7 @@ from datetime import timedelta
 from models import Workouts, User, db
 from info_to_insert import *
 from workout_functions import search, create_workout, user_exists, create_user, remove_workout, workout_exists
+from routines import chest_day, back_day
 
 
 
@@ -105,13 +106,14 @@ def create_account():
         email = request.form["email"]
         name = request.form["name"]
         password = request.form['password']
+        goal = request.form['goal']
 
-        if user_exists(username, User):  
+        if user_exists(username):  
             flash("You already have an account")
             return redirect(url_for("login"))
 
         else:
-            create_user(username, email, name, password)
+            create_user(username, email, name, password, goal)
             flash("Account was created")
             return redirect(url_for("login"))
     return render_template("create_account.html")
@@ -127,6 +129,15 @@ def logout():
     session.pop("email", None)
     return redirect(url_for("login"))
 
+
+@app.route("/day")
+def day():
+    
+    if "user_id" in session:
+
+   
+        
+        return render_template("day.html", day_1=chest_day(session["user_id"]), day_2=back_day(session["user_id"]))
 
 if __name__ == "__main__":
     with app.app_context():

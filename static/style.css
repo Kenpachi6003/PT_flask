@@ -3,8 +3,9 @@ h1, li, p, table {
     text-align: center;
 }
 a { color:dodgerblue;}
-h1{ font-size: 50; color:rgb(148, 145, 145);}
+h1, p{ font-size: 50; color:rgb(148, 145, 145);}
+p{font-size: 25;}
 body{background-color: darkslategray;}
 
-input {font-size: 25;}
+input {font-size: 75;}
 table{ border: 2 ;background-color: #efefef;}

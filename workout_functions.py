@@ -12,6 +12,11 @@ def delete_workouts():
 
     return db.session.commit()
 
+def delete_users():
+    view_users = User.query.all()
+    for user in view_users:
+        db.session.delete(user)
+    return db.session.commit()
 
 def add_all_exercises(exercises, body_part, muscle_targeted=None):
     view_workouts= Workouts.query.all()
@@ -78,8 +83,8 @@ def user_exists(username):
             return True
     return False
 
-def create_user(username, email, name, password):
-    user = User(username=username, email=email, name=name, password=password )
+def create_user(username, email, name, password, goal):
+    user = User(username=username, email=email, name=name, password=password, goal=goal)
     db.session.add(user)
     db.session.commit()
     return user
