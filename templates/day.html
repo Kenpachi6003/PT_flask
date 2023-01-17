@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='days.css')}}">
-<h1>Chest Day</h1>
+<h1>{{routine_day}}</h1>
 
 
     <table>
@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in day_1%}
+            {% for item in values%}
             <tr>
                 <th class="one">{{item.workout_name}}</th>
                 <td>4-5</td>
@@ -26,27 +26,4 @@
     </table>
 
 
-<h1>Back Day</h1>
-
-
-    <table>
-        <thead>
-            <tr>
-                <th>Workout</th>
-                <th>Sets</th>
-                <th>Reps</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in day_2%}
-            <tr>
-                <th class="one">{{item.workout_name}}</th>
-                <td>4-5</td>
-                <td>12-15</td>
-            </tr>
-            {%endfor%}
-
-        
-        </tbody>
-    </table>
 {% endblock %}

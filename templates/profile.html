@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title%}Profile {% endblock %}
+
+{% block content %}
+<form action="#" method="POST">
+    <p>What day are you on?
+            <br />
+        <input type="radio" name="routine_day" value="Chest">Day 1
+        <input type="radio" name="routine_day" value="Back">Day 2
+        <input type="radio" name="rotuine_day" value="Legs">Day 3
+        <input type="radio" name="routine_day" value="Shoulders">Day 4 
+    </p>
+    <p><input type="submit" value="Continue"/></p>
+</form>
+{% endblock %}

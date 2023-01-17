@@ -4,7 +4,7 @@ from datetime import timedelta
 from models import Workouts, User, db
 from info_to_insert import *
 from workout_functions import search, create_workout, user_exists, create_user, remove_workout, workout_exists
-from routines import chest_day, back_day
+from routines import Day, which_day
 
 
 
@@ -57,10 +57,13 @@ def delete_workout():
         return render_template("delete_workout.html")
 
 
-@app.route('/routines')
-def routines():
+@app.route('/profile', methods=["POST", "GET"])
+def profile():
     if "user_id" in session:
-        return render_template('routines.html', values=Workouts.query.filter_by(body_part='back'))
+        if request.method=="POST":
+            session["routine_day"] = request.form["routine_day"]
+            return redirect(url_for("day"))
+        return render_template("profile.html")
     else:
         return redirect(url_for("login"))
 
@@ -78,7 +81,7 @@ def view():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if "user_id" in session:
-        return redirect(url_for("workouts"))
+        return redirect(url_for("profile"))
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
@@ -92,7 +95,7 @@ def login():
 
         flash("Login succesful!")
 
-        return redirect(url_for("workouts"))
+        return redirect(url_for("profile"))
 
     return render_template("login.html")
     
@@ -135,9 +138,11 @@ def day():
     
     if "user_id" in session:
 
-   
+        routine_day = session["routine_day"]    
         
-        return render_template("day.html", day_1=chest_day(session["user_id"]), day_2=back_day(session["user_id"]))
+        day_1 = which_day(session["user_id"], routine_day)
+
+        return render_template("day.html" ,routine_day=routine_day, values=day_1.workout_day())
 
 if __name__ == "__main__":
     with app.app_context():
