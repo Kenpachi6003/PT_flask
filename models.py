@@ -18,3 +18,10 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=True)
     password = db.Column(db.String(100), nullable=False)
     goal = db.Column(db.String(20), nullable=False)
+
+
+class Test_data(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    workout_name = db.Column(db.String, nullable=False)
+    body_part = db.Column(db.String)
+    muscle_targeted = db.Column(db.String, nullable=True)

@@ -9,10 +9,14 @@
 [+]if i am logged in it should redirect me to workouts
 [+]make sure i am in session
 [+]create a delete workout function
-[-]create a chest, back, leg, arms, and shoulder day
-[-]add goal to User
-[-]
-[-]
-[-]
-[-]
-[-]
+[+]create a chest, back, leg, arms, and shoulder day
+[+]add goal to User
+[+] make a days class
+[+]make a choose_day.html
+[-] add lose weight
+[-]make days a link
+[-] make a days.py that sets the workouts that will be used
+[-] make tests for my functions
+[-]i think that instead of querying users in the function, I should make the query the argument, it will make repetitive functions be only one
+[-]learn how to use faker
+[-]export PYTHONPATH='/home/kenpachiz/PT_flask'
