@@ -1,17 +1,35 @@
 from flask import Flask, redirect, render_template, request, flash, url_for, session
 from flask_bcrypt import Bcrypt
+import os
+
+PT_flask = os.environ["PWD"]
+import sys
+
+sys.path.insert(0, PT_flask)
 from datetime import timedelta
-from models import Workouts, User, Test_data, db
-from info_to_insert import *
-from workout_functions import (
+from app.models import (
+    Workouts,
+    WorkoutsView,
+    User,
+    UserView,
+    Routine,
+    RoutineView,
+    Day_of_routine,
+    DayView,
+    Test_data,
+    db,
+    admin,
+)
+from app.info_to_insert import *
+from app.workout_functions import (
     search,
     create_workout,
-    user_exists,
-    create_user,
     remove_workout,
     workout_exists,
+    list_of_videos,
 )
-from routines import Day, which_day
+
+from app.user_functions import user_exists, create_user
 
 
 app = Flask(__name__)
@@ -20,6 +38,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+admin.init_app(app)
+admin.add_view(UserView(User, db.session))
+admin.add_view(RoutineView(Routine, db.session))
+admin.add_view(DayView(Day_of_routine, db.session))
+admin.add_view(WorkoutsView(Workouts, db.session))
 
 bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
@@ -85,6 +108,12 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/video")
+def video():
+    video_url = list_of_videos()
+    return render_template("video.html", video_urls=video_url)
+
+
 @app.route("/view")
 def view():
     return render_template("view.html", values=Test_data.query.all())
@@ -107,7 +136,7 @@ def login():
 
         flash("Login succesful!")
 
-        return redirect(url_for("profile"))
+        return redirect(url_for("routine"))
 
     return render_template("login.html")
 
@@ -119,16 +148,17 @@ def create_account():
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
-        name = request.form["name"]
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
         password = request.form["password"]
         goal = request.form["goal"]
 
-        if user_exists(username):
+        if user_exists(User, username):
             flash("You already have an account")
             return redirect(url_for("login"))
 
         else:
-            create_user(username, email, name, password, goal)
+            create_user(User, username, email, first_name, last_name, password, goal)
             flash("Account was created")
             return redirect(url_for("login"))
     return render_template("create_account.html")
@@ -154,6 +184,16 @@ def day():
         return render_template(
             "day.html", routine_day=routine_day, values=day_1.workout_day()
         )
+
+
+@app.route("/routine", methods=["POST", "GET"])
+def routine():
+    if "user_id" in session:
+        routines = Routine.query.filter_by(id=2).first()
+
+        return render_template("routine.html", routine_days=routines)
+    else:
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":

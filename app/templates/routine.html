@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<html>
+    <head>
+        <title>Workout Program</title>
+    </head>
+
+    <body>
+        <h1>Workout Program</h1>
+    
+
+        <div>
+            {% for routine in routine_days.workouts %}
+            <div>
+                <h2>{{routine.workout_day_name}}</h2>
+                <p>{{routine.w1}}</p>
+                <p>{{routine.w2}}</p>
+                <p>{{routine.w3}}</p>
+                <p>{{routine.w4}}</p>
+                <p>{{routine.w5}}</p>
+            </div>
+            
+            {% endfor %}
+
+        </div>
+    </body>
+</html>
+{% endblock content%}

@@ -20,3 +20,4 @@
 [-]i think that instead of querying users in the function, I should make the query the argument, it will make repetitive functions be only one
 [-]learn how to use faker
 [-]export PYTHONPATH='/home/kenpachiz/PT_flask'
+[-]add the video links to my workouts model
