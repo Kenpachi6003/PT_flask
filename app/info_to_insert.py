@@ -2,8 +2,8 @@
 
 # chest
 upper_chest_workouts = [
-    "incline_barbell_benchpress",
-    "incline_dumbell_press",
+    "incline barbell benchpress",
+    "incline dumbell press",
     "reverse grip dumbbell press",
     "incline dumbbell around the world",
     "cable upper chest crossover",
@@ -15,37 +15,37 @@ upper_chest_workouts = [
 ]
 
 mid_chest_workouts = [
-    "dumbell_bench_press",
+    "dumbell bench press",
     "dumbbell chest flys",
     "bench push-up",
-    "barbell_benchpress",
+    "barbell benchpress",
     "close grip barbell bench press",
     "alterrnating dumbbell bench press",
     "cable crossover",
     "dumbbell half fly",
     "floor dumbbell chest press",
     "plate pressout",
-    "push_ups",
+    "push ups",
     "close grip push-up",
 ]
 
 lower_chest_workouts = [
     "chest dips",
-    "decline_barbell_benchpress",
+    "decline barbell benchpress",
     " cable crossover fly from upper pulley",
     "decline dumbbell fly",
     "decline dumbbell press",
     "decline champagnes",
     "incline push-up",
-    "high_cable_chest_fly",
+    "high cable chest fly",
 ]
 
 # back
 workouts_for_back = [
     "lat pulldown",
     "seated cable rows",
-    "bentover_barbell_row",
-    "bentover_dumbell_row",
+    "bentover barbell row",
+    "bentover dumbell row",
     "single arm row",
     "deadlift",
     "pull up",
@@ -65,7 +65,7 @@ workouts_for_back = [
     "superman",
     "suspension trainer inverted row",
     "bent over row to neck",
-    "seated_row_machine",
+    "seated row machine",
 ]
 
 # arm
@@ -73,56 +73,56 @@ front_delt_workouts = [
     "military press",
     "dumbbell shoulder press",
     "front raise",
-    "standing_straight_bar_overhead_press",
+    "standing straight bar overhead press",
 ]
 
 rear_delt_workouts = [
     "rear shoulder raise",
     "reverse flyes",
     "facepulls",
-    "rear_delt_bent_over_flys",
-    "rear_delt_fly_machine",
+    "rear delt bent over flys",
+    "rear delt fly machine",
 ]
 
-mid_delt_workouts = ["dumbell_lateral_shoulder_raises", "arnold press"]
+mid_delt_workouts = ["dumbell lateral shoulder raises", "arnold press"]
 
 workouts_for_tricep = [
-    "overhead_tricep_extension",
-    "tricep_extension",
+    "overhead tricep extension",
+    "tricep extension",
     "tricep kickback",
     "standing tricep pushdown",
-    "dumbell_bentover_tricep_ext",
-    "dumbell_lying_tricep_ext",
-    "rope_pulldown",
+    "dumbell bentover tricep ext",
+    "dumbell lying tricep ext",
+    "rope pulldown",
     "skullcrusher",
 ]
 
 workouts_for_bicep = [
     "bicep curls",
-    "hammer_curls",
-    "concentrated_dumbell_curls",
-    "incline_dumbell_curl",
-    "seated_straght_bar_curl",
-    "straightbar_curl",
+    "hammer curls",
+    "concentrated dumbell_curls",
+    "incline dumbell curl",
+    "seated straght bar curl",
+    "straightbar curl",
 ]
 
 # legs
 workouts_for_legs = [
-    "leg_press",
-    "barbell_squat",
+    "leg press",
+    "barbell squat",
     "front squat",
     "traditional deadlift",
     "modified deadlift",
     "romanian deadlift",
-    "dumbell_squat",
+    "dumbell squat",
     "dumbbell lunge",
     "lateral lunge",
     "dumbbell step-up",
     "single leg bulgarian squat",
     "heel raises",
-    "frog_pump",
-    "hip_abduction",
-    "hip_adduction",
+    "frog pump",
+    "hip abduction",
+    "hip adduction",
 ]
 
 workouts_for_quads = [
@@ -174,13 +174,13 @@ workouts_for_hamstrings = [
     "reverse inchworm",
     "glute bridge walkout",
     "standing leg curls",
-    "seated_leg_curls",
+    "seated leg curls",
     "straight leg deadlift",
-    "lying_leg_curls",
+    "lying leg curls",
     "dumbell good morning",
     "barbell good morning",
-    "pull_through",
-    "stiffleg_deadlif",
+    "pull through",
+    "stiffleg deadlift",
 ]
 
 workouts_for_calves = [

@@ -1,9 +1,0 @@
-{% extends "base.html"%}
-{% block title%}View searched workout{% endblock%}
-{% block content%}
-    {% for item in values %}
-        <p>workout name:{{item.workout_name}}</p>
-        <p>body part:{{item.body_part}}</p>
-        <p>muscle targeted: {{item.muscle_targeted}}</p>
-    {%endfor%}
-{% endblock%}

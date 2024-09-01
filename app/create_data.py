@@ -32,6 +32,7 @@ def main():
     add_workouts_to_model(
         Workouts, workouts_for_bicep, "arms", "biceps", list_of_videos()
     )
+    add_workouts_to_model(Workouts, workouts_for_legs, "legs", None, list_of_videos())
     add_workouts_to_model(
         Workouts, workouts_for_quads, "legs", "quads", list_of_videos()
     )

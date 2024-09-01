@@ -12,16 +12,14 @@
     
 
         <div>
-            {% for routine in routine_days.workouts %}
+            {% for workout_name, workouts in routine_days.items() %}
+            <h1>{{workout_name}}</h1>
+                {% for workout, workout_link in workouts.items()%}
             <div>
-                <h2>{{routine.workout_day_name}}</h2>
-                <p>{{routine.w1}}</p>
-                <p>{{routine.w2}}</p>
-                <p>{{routine.w3}}</p>
-                <p>{{routine.w4}}</p>
-                <p>{{routine.w5}}</p>
+                <a href={{workout_link}}>{{workout}}</a>
+                
             </div>
-            
+                {% endfor %}
             {% endfor %}
 
         </div>

@@ -10,12 +10,6 @@ from app.starting_app import app
 from app.day import routines
 
 
-# this function works with a list of routine days
-# and I want each workout to be linked to its video
-def link_to_video():
-    pass
-
-
 def make_routine_name(model, routine_name):
 
     routine = model(routine_name=routine_name)

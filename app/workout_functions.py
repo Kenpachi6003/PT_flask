@@ -41,12 +41,17 @@ def list_of_videos():
 
 
 def filter_video_name(video_name):
-    delimiters = ["https://causey.s3.us-east-2.amazonaws.com/workout_vids/", ".mov"]
+    delimiters = [
+        "https://causey.s3.us-east-2.amazonaws.com/workout_vids/",
+        ".mov",
+        ".MOV",
+        "_",
+    ]
     for delimiter in delimiters:
         if delimiter in video_name:
-            video_name = "".join(video_name.split(delimiter))
+            video_name = " ".join(video_name.split(delimiter))
 
-    return video_name
+    return video_name.strip()
 
 
 def video_to_add_to_model(workout_name, videos):
@@ -58,6 +63,36 @@ def video_to_add_to_model(workout_name, videos):
             video_name = video
 
     return video_name
+
+
+# return dictionary to add to my routine_with_videos func
+
+
+def add_links_to_routine_days(day, workouts_model):
+    routine_workouts = {}
+
+    days = [day.w1, day.w2, day.w3, day.w4, day.w5]
+
+    for workout in workouts_model:
+        if workout.workout_name in days:
+
+            routine_workouts[workout.workout_name] = workout.workout_link
+
+    return routine_workouts
+
+
+# this function works with a list of routine days
+# and I want each workout to be linked to its video
+def routine_with_videos(routine_model, workouts_model):
+    routine_days = {}
+
+    for routine_day in routine_model.workouts:
+
+        routine_days[routine_day.workout_day_name] = add_links_to_routine_days(
+            routine_day, workouts_model
+        )
+
+    return routine_days
 
 
 def add_workouts_to_model(model, workout_names, body_part, muscle_targeted, videos):

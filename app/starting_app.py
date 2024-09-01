@@ -27,6 +27,7 @@ from app.workout_functions import (
     remove_workout,
     workout_exists,
     list_of_videos,
+    routine_with_videos,
 )
 
 from app.user_functions import user_exists, create_user
@@ -46,48 +47,6 @@ admin.add_view(WorkoutsView(Workouts, db.session))
 
 bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
-
-
-@app.route("/workouts", methods=["GET", "POST"])
-def workouts():
-    if "user_id" in session:
-        if request.method == "POST":
-            searched = request.form["search"]
-            exercises = search(searched, Workouts.query.all())
-            return render_template("workouts.html", values=exercises)
-
-        return render_template("workouts.html", values=Workouts.query.all())
-    else:
-        return redirect(url_for("login"))
-
-
-@app.route("/add_workout", methods=["POST", "GET"])
-def add_workout():
-    if request.method == "POST":
-        workout_name = request.form["workout_name"]
-        body_part = request.form["body_part"]
-        muscle_targeted = request.form["muscle_targeted"]
-        workout = create_workout(workout_name, body_part, muscle_targeted)
-        db.session.add(workout)
-        db.session.commit()
-        return redirect(url_for("workouts"))
-    else:
-        return render_template("add_workout.html")
-
-
-@app.route("/delete_workout", methods=["GET", "POST"])
-def delete_workout():
-    if request.method == "POST":
-        workout_name = request.form["workout_name"]
-
-        if workout_exists(workout_name, Workouts.query.all()):
-            workout = remove_workout(workout_name)
-            db.session.delete(workout)
-            db.session.commit()
-
-        return redirect(url_for("workouts"))
-    else:
-        return render_template("delete_workout.html")
 
 
 @app.route("/profile", methods=["POST", "GET"])
@@ -114,15 +73,10 @@ def video():
     return render_template("video.html", video_urls=video_url)
 
 
-@app.route("/view")
-def view():
-    return render_template("view.html", values=Test_data.query.all())
-
-
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if "user_id" in session:
-        return redirect(url_for("profile"))
+        return redirect(url_for("routine"))
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
@@ -174,24 +128,14 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/day")
-def day():
-    if "user_id" in session:
-        routine_day = session["routine_day"]
-
-        day_1 = which_day(session["user_id"], routine_day)
-
-        return render_template(
-            "day.html", routine_day=routine_day, values=day_1.workout_day()
-        )
-
-
 @app.route("/routine", methods=["POST", "GET"])
 def routine():
     if "user_id" in session:
-        routines = Routine.query.filter_by(id=2).first()
+        routines = Routine.query.filter_by(id=1).first()
 
-        return render_template("routine.html", routine_days=routines)
+        routines1 = routine_with_videos(routines, Workouts.query.all())
+        # breakpoint()
+        return render_template("routine.html", routine_days=routines1)
     else:
         return redirect(url_for("login"))
 
