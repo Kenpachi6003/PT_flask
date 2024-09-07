@@ -35,6 +35,8 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     goal = db.Column(db.String(20), nullable=True)
+    beginning_day_id = db.Column(db.Integer, nullable=True)
+    current_day_id = db.Column(db.Integer, nullable=True)
     user_routine = db.relationship("Routine", backref="user")
 
 
@@ -80,7 +82,8 @@ class Day_of_routine(db.Model):
     w2 = db.Column(db.String)
     w3 = db.Column(db.String)
     w4 = db.Column(db.String)
-    w5 = db.Column(db.String)
+    w5 = db.Column(db.String, nullable=True)
+
     routine_name = db.Column(db.String, db.ForeignKey("routine.routine_name"))
 
 

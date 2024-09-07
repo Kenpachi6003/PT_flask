@@ -1,5 +1,104 @@
-h1{background-color: brown; max-width: 600px;}
-thead,th {background-color: gray; width: 200px;}
-th.one {background-color: black; color: white;}
+body{
+    background-color: #4169e1;
+}
 
-table,th,td {border-width: 2px; border-style: solid;}
+#workouts {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.workout {
+    font-size: 25px;
+}
+
+.day_title {
+    text-align: center;
+    font-size: 40px;
+}
+
+table {
+    text-align: center;
+    border: 2 ;
+    background-color: #efefef;
+}
+
+p{
+    font-size: 25px;
+    color:black;
+}
+
+thead,th {
+    background-color: gray;
+    width: 200px;
+    border-style: ridge;
+    
+
+}
+
+th.one {
+    background-color: black;
+    color: white;
+}
+
+
+    
+#workouts , #complete-btn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    
+
+}
+
+.workout, .workout a {
+    font-size: 20px;
+    color: black;
+    text-align: center;
+
+}
+
+.change-day-id-btn {
+    padding: 30px 40px;
+    font-size: 24px;
+    
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for resizing */
+}
+
+.change-day-id-btn:hover {
+    background-color: grey;
+    color: white;
+}
+
+
+    
+/* Font size for small screens (e.g., phones) */
+@media (max-width: 599px) {
+    .workout {
+        font-size: 15px;
+    }
+    .change-day-id-btn{
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-left: 10px;
+        
+    }
+    .day_title {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 13.5px;
+    }
+
+    th.link {
+        font-size: 10px;
+    }
+}

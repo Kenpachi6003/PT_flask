@@ -1,0 +1,56 @@
+{% extends "navbar.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='days.css')}}">
+<html>
+    <head>
+        <title>Workout Program</title>
+    </head>
+
+    <body>
+        
+    
+
+        <div id="workouts">
+            <h1 class="day_title">Day {{day.title()}}</h1>
+            <p><b>Intensity is the amount of strength you should be using in your seperate Reps.</b></p>
+            {% for workout, workout_link in workout_day.items() %}
+            
+               
+            <div class="workout">
+                
+                
+
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="one">Workout</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Intensity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+          
+                            <th class="link"><a href={{workout_link}}>{{workout.title()}}</a></th>
+                            <td>4-5</td>
+                            <td>12-15</td>
+                            <td>30, 50, 60, 70, 90</td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+
+            {% endfor %}
+            <div id="complete-btn">
+                <form id="change-day-id-form" action="{{ url_for('change_day_id') }}" method="POST">
+                    <input type="hidden" name="day_id" value="{{day.id}}">
+                    <button data-id="{{day.id}}" type="submit" class="change-day-id-btn" value="change day id">Complete</button>
+                </form>
+            </div>
+        </div>
+
+
+    </body>
+</html>
+{% endblock content%}

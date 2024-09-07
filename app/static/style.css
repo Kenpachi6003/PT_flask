@@ -1,11 +1,14 @@
 
-h1, li, p, table {
+h1, p, h1, li {
     text-align: center;
 }
-a { color:dodgerblue;}
-h1, p{ font-size: 50; color:rgb(148, 145, 145);}
-p{font-size: 25;}
-body{background-color: darkslategray;}
+
+h1, p{ font-size: 50; color:black;}
+body{background-color: #4169e1;}
 
 input {font-size: 75;}
-table{ border: 2 ;background-color: #efefef;}
+
+
+
+
+

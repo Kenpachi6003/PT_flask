@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css')}}">
+    </head>
+    <body>
+        <div class="title">
+            <a href="/" class="active">Causey Fitness</a>
+        </div>
+        <nav class="navbar" id="navbar">
+            <a href="/">Home</a>
+            <a href="routine">Routine</a>
+            <a href="day">Day</a>
+            <a href="contact_us">Contact us</a>
+            <a href="about_me">About me</a>
+            <a href="login">Log in</a>
+            <a href="logout">Logout</a>
+        </nav>
+    {% block content%}
+    {% endblock %}
+    <script src="navbar.js"></script>
+    </body>
+</html>

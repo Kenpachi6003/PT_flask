@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "navbar.html" %}
 
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css')}}">
 {% with messages = get_flashed_messages() %}
     {%if messages%}
         {% for msg in messages %}

@@ -1,0 +1,57 @@
+.navbar {
+	display: flex;
+	justify-content: center;
+	
+    text-align: center;
+    align-items: center;
+	font-size: 30px;
+	background-color: black;
+  }
+  
+  .title {
+	text-align: center;
+  }
+  .title a{
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 50px;
+	
+  }
+  .navbar a {
+	display: flex;
+	color: white;
+	padding: 14px 20px;
+	text-decoration: none;
+	font-size: 40px;
+	
+
+  }
+  
+  .navbar a:hover {
+	background-color: #555;
+  }
+  
+  .navbar a.active {
+	background-color: #FFB6C1;
+  }
+  
+  /* Font size for medium screens (e.g., tablets) */
+@media (max-width: 768px) {
+    .navbar {
+        font-size: 18px;
+    }
+}
+
+/* Font size for small screens (e.g., phones) */
+@media (max-width: 480px) {
+	.title a{
+		font-size: 20px;
+	}
+
+	.navbar a {
+		padding: 7px 10px;
+		font-size: 10px;
+	}
+	
+}

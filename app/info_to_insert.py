@@ -84,7 +84,7 @@ rear_delt_workouts = [
     "rear delt fly machine",
 ]
 
-mid_delt_workouts = ["dumbell lateral shoulder raises", "arnold press"]
+mid_delt_workouts = ["dumbell lateral shoulder raises", "arnold press", "shrugs"]
 
 workouts_for_tricep = [
     "overhead tricep extension",
@@ -100,7 +100,7 @@ workouts_for_tricep = [
 workouts_for_bicep = [
     "bicep curls",
     "hammer curls",
-    "concentrated dumbell_curls",
+    "concentrated dumbell curls",
     "incline dumbell curl",
     "seated straght bar curl",
     "straightbar curl",

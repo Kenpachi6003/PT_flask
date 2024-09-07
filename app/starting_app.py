@@ -28,6 +28,7 @@ from app.workout_functions import (
     workout_exists,
     list_of_videos,
     routine_with_videos,
+    add_links_to_routine_days,
 )
 
 from app.user_functions import user_exists, create_user
@@ -87,10 +88,11 @@ def login():
             return redirect(url_for("create_account"))
 
         session["user_id"] = user.id
+        session["beginning_day"] = user.user_routine[0].workouts[0].id
 
         flash("Login succesful!")
 
-        return redirect(url_for("routine"))
+        return redirect(url_for("day"))
 
     return render_template("login.html")
 
@@ -98,7 +100,7 @@ def login():
 @app.route("/create_account", methods=["POST", "GET"])
 def create_account():
     if "user_id" in session:
-        return redirect(url_for("workouts"))
+        return redirect(url_for("day"))
     if request.method == "POST":
         username = request.form["username"]
         email = request.form["email"]
@@ -128,6 +130,11 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/about_me")
+def about_me():
+    return render_template("about_me.html")
+
+
 @app.route("/routine", methods=["POST", "GET"])
 def routine():
     if "user_id" in session:
@@ -138,6 +145,41 @@ def routine():
         return render_template("routine.html", routine_days=routines1)
     else:
         return redirect(url_for("login"))
+
+
+@app.route("/day", methods=["POST", "GET"])
+def day():
+    if "user_id" in session:
+        user = User.query.filter_by(id=session["user_id"]).first()
+
+        if user.current_day_id == None:
+            user.current_day_id = session["beginning_day"]
+            db.session.commit()
+
+        day = Day_of_routine.query.filter_by(id=user.current_day_id).first()
+        workout_day = add_links_to_routine_days(day, Workouts.query.all())
+
+        # breakpoint()
+        return render_template(
+            "day.html", workout_day=workout_day, day=day.workout_day_name
+        )
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/change_day_id", methods=["POST", "GET"])
+def change_day_id():
+
+    user = User.query.filter_by(id=session["user_id"]).first()
+
+    if user.current_day_id >= 4:
+        user.current_day_id = session["beginning_day"]
+    else:
+        user.current_day_id = user.current_day_id + 1
+
+    db.session.commit()
+
+    return redirect(url_for("day"))
 
 
 if __name__ == "__main__":

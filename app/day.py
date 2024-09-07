@@ -36,6 +36,7 @@ routines = {
             "dumbell lateral shoulder raises",
             "rear delt bent over flys",
             "shrugs",
+            None,
         ],
     },
     "Machine focused": {
@@ -66,6 +67,7 @@ routines = {
             "lateral shoulder raises",
             "reverse machine flys",
             "shrugs",
+            None,
         ],
     },
 }
@@ -74,12 +76,14 @@ routines = {
 def add_days_to_routine(model, routine, routine_name):
 
     for workout_day in routine:
+
         d = model(
             workout_day_name=workout_day,
             w1=routine[workout_day][0],
             w2=routine[workout_day][1],
             w3=routine[workout_day][2],
             w4=routine[workout_day][3],
+            w5=routine[workout_day][4],
             routine_name=routine_name,
         )
         db.session.add(d)
