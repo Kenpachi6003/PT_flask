@@ -13,7 +13,9 @@ def user_exists(model, username):
     return False
 
 
-def create_user(model, username, email, first_name, last_name, password, goal):
+def create_user(
+    model, username, email, first_name, last_name, password, goal, role=None
+):
     user = model(
         username=username,
         email=email,
@@ -21,6 +23,7 @@ def create_user(model, username, email, first_name, last_name, password, goal):
         last_name=last_name,
         password=password,
         goal=goal,
+        role=role,
     )
     db.session.add(user)
     db.session.commit()

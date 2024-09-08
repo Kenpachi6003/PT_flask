@@ -12,6 +12,7 @@ upper_chest_workouts = [
     "dumbbell pullover",
     "decline push-up",
     "pike push-up",
+    "incline chest press",
 ]
 
 mid_chest_workouts = [
@@ -27,6 +28,8 @@ mid_chest_workouts = [
     "plate pressout",
     "push ups",
     "close grip push-up",
+    "chest press",
+    "machine flys",
 ]
 
 lower_chest_workouts = [
@@ -66,6 +69,9 @@ workouts_for_back = [
     "suspension trainer inverted row",
     "bent over row to neck",
     "seated row machine",
+    "lat pulldown machine",
+    "seated row machine",
+    "back extension machine",
 ]
 
 # arm
@@ -74,6 +80,7 @@ front_delt_workouts = [
     "dumbbell shoulder press",
     "front raise",
     "standing straight bar overhead press",
+    "machine shoulder press",
 ]
 
 rear_delt_workouts = [
@@ -95,6 +102,8 @@ workouts_for_tricep = [
     "dumbell lying tricep ext",
     "rope pulldown",
     "skullcrusher",
+    "dip machine",
+    "tricep extension machine",
 ]
 
 workouts_for_bicep = [
@@ -104,6 +113,8 @@ workouts_for_bicep = [
     "incline dumbell curl",
     "seated straght bar curl",
     "straightbar curl",
+    "bicep curl machine",
+    "concentration curl machine",
 ]
 
 # legs
@@ -123,6 +134,7 @@ workouts_for_legs = [
     "frog pump",
     "hip abduction",
     "hip adduction",
+    "machine leg press",
 ]
 
 workouts_for_quads = [
@@ -181,6 +193,7 @@ workouts_for_hamstrings = [
     "barbell good morning",
     "pull through",
     "stiffleg deadlift",
+    "seated leg curl",
 ]
 
 workouts_for_calves = [
@@ -188,6 +201,7 @@ workouts_for_calves = [
     "seated calf raises",
     "elevated calf raises",
     "single-leg calf raises",
+    "calf raise machine",
 ]
 
 # abdomen

@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
           
-                            <th class="link"><a href={{workout_link}}>{{workout.title()}}</a></th>
+                            <th><a class="video-link" data-video-url="{{workout_link}}">{{workout.title()}}</a></th>
                             <td>4-5</td>
                             <td>12-15</td>
                             <td>30, 50, 60, 70, 90</td>
@@ -50,7 +50,17 @@
             </div>
         </div>
 
-
+        <script>
+            // JavaScript to handle video link clicks
+            document.querySelectorAll('.video-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();  // Prevent the default link behavior
+                    const videoUrl = this.getAttribute('data-video-url');  // Get the video URL from the data attribute
+                    // Redirect to the play page with the video URL as a query parameter
+                    window.location.href = `/play?video_url=${encodeURIComponent(videoUrl)}`;
+                });
+            });
+        </script>
     </body>
 </html>
 {% endblock content%}

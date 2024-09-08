@@ -1,9 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    login_required,
+    logout_user,
+    current_user,
+)
 from flask_admin.contrib.sqla import ModelView
+from flask import Flask, redirect, render_template, request, flash, url_for, session
 
 db = SQLAlchemy()
-admin = Admin()
 
 
 class Workouts(db.Model):
@@ -26,7 +34,7 @@ class Test_Workouts(db.Model):
     workout_link = db.Column(db.String, nullable=True)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -37,11 +45,19 @@ class User(db.Model):
     goal = db.Column(db.String(20), nullable=True)
     beginning_day_id = db.Column(db.Integer, nullable=True)
     current_day_id = db.Column(db.Integer, nullable=True)
-    user_routine = db.relationship("Routine", backref="user")
+    role = db.Column(db.String(50))
+    user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
 
 
 class UserView(ModelView):
-    column_list = ["username", "email", "first_name", "last_name", "user_routine"]
+    column_list = [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "user_routine",
+        "role",
+    ]
 
 
 class Test_User(db.Model):
@@ -65,11 +81,11 @@ class Routine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     routine_name = db.Column(db.String)
     workouts = db.relationship("Day_of_routine", backref="routine")
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    users_with_routine = db.relationship("User", backref="routine")
 
 
 class RoutineView(ModelView):
-    column_list = ["id", "routine_name", "workouts", "user_id"]
+    column_list = ["id", "routine_name", "workouts", "users_with_routine"]
 
 
 class Day_of_routine(db.Model):
@@ -116,3 +132,20 @@ class Test_data(db.Model):
     workout_name = db.Column(db.String, nullable=False)
     body_part = db.Column(db.String)
     muscle_targeted = db.Column(db.String, nullable=True)
+
+
+class AdminView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("day"))  # Redirect non-admins to login
+
+
+# Custom admin view
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("day"))

@@ -1,14 +1,37 @@
 from app.starting_app import app
+from app.user_functions import create_user
 from app.workout_functions import (
     add_workouts_to_model,
     add_workouts_to_model,
     list_of_videos,
 )
-from app.models import Workouts, db
+from app.models import Workouts, db, User
 from info_to_insert import *
 
 
 def main():
+
+    create_user(
+        User,
+        "jcruz6003",
+        "jcruz6003@gmail.com",
+        "jose",
+        "cruz",
+        "loka1234",
+        "build_muscle",
+        "admin",
+    )
+    create_user(
+        User,
+        "chris",
+        "chris6003@gmail.com",
+        "Christina",
+        "Causey",
+        "loka1234",
+        "build_muscle",
+        None,
+    )
+
     add_workouts_to_model(
         Workouts, upper_chest_workouts, "chest", "upper chest", list_of_videos()
     )

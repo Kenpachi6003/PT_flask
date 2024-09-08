@@ -1,0 +1,25 @@
+body {
+    background-color: #4169e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: flex-start;
+}
+h1 {
+    font-size: 48px;
+}
+       /* Add bullet points to unordered list */
+ul {
+    list-style-type: circle;  /* You can also use circle, square, etc. */
+}
+
+/* Customize bullet point appearance */
+li {
+    margin-left: 20px;  /* Indent the bullet point */
+}
+
+li a {
+    display: flex;
+    cursor: pointer;
+    color: black;
+}

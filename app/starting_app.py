@@ -1,4 +1,12 @@
 from flask import Flask, redirect, render_template, request, flash, url_for, session
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    login_user,
+    login_required,
+    logout_user,
+    current_user,
+)
 from flask_bcrypt import Bcrypt
 import os
 
@@ -18,7 +26,9 @@ from app.models import (
     DayView,
     Test_data,
     db,
-    admin,
+    Admin,
+    AdminView,
+    MyAdminIndexView,
 )
 from app.info_to_insert import *
 from app.workout_functions import (
@@ -29,43 +39,35 @@ from app.workout_functions import (
     list_of_videos,
     routine_with_videos,
     add_links_to_routine_days,
+    filter_video_name,
 )
 
 from app.user_functions import user_exists, create_user
 
-
 app = Flask(__name__)
+admin = Admin(app, index_view=MyAdminIndexView())
+
 app.secret_key = "lLIeYDuz9k4Ki4OIme-ff09SczH_Gtteol-n-BnwMIw"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
-admin.init_app(app)
+
 admin.add_view(UserView(User, db.session))
 admin.add_view(RoutineView(Routine, db.session))
 admin.add_view(DayView(Day_of_routine, db.session))
 admin.add_view(WorkoutsView(Workouts, db.session))
-
+login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
 
 
-@app.route("/profile", methods=["POST", "GET"])
-def profile():
-    if "user_id" in session:
-        if request.method == "POST":
-            session["routine_day"] = request.form["routine_day"]
-            return redirect(url_for("day"))
-        else:
-            return render_template("profile.html")
-    else:
-        return redirect(url_for("login"))
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 # new code
-@app.route("/")
-def home():
-    return render_template("index.html")
 
 
 @app.route("/video")
@@ -74,25 +76,42 @@ def video():
     return render_template("video.html", video_urls=video_url)
 
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/play")
+def play_video():
+    video_url = request.args.get("video_url")  # Get the video URL from query parameter
+
+    return render_template(
+        "play_video.html",
+        video_url=video_url,
+        workout_name=filter_video_name(video_url),
+    )
+
+
+@app.route("/", methods=["POST", "GET"])
 def login():
     if "user_id" in session:
-        return redirect(url_for("routine"))
+        return redirect(url_for("day"))
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
+        password = request.form["password"]
 
         user = User.query.filter_by(username=username).first()
+        if user and user.password == password:
+            session["user_id"] = user.id
 
-        if user is None:
+            login_user(user)
+
+            if user.role == None:
+                routine = Routine.query.filter_by(id=user.user_routine).first()
+
+                session["beginning_day"] = routine.workouts[0].id
+
+                flash("Login succesful!")
+                return redirect(url_for("day"))
+            return redirect(url_for("admin.index"))
+        elif user is None:
             return redirect(url_for("create_account"))
-
-        session["user_id"] = user.id
-        session["beginning_day"] = user.user_routine[0].workouts[0].id
-
-        flash("Login succesful!")
-
-        return redirect(url_for("day"))
 
     return render_template("login.html")
 
@@ -159,7 +178,6 @@ def day():
         day = Day_of_routine.query.filter_by(id=user.current_day_id).first()
         workout_day = add_links_to_routine_days(day, Workouts.query.all())
 
-        # breakpoint()
         return render_template(
             "day.html", workout_day=workout_day, day=day.workout_day_name
         )
@@ -171,8 +189,9 @@ def day():
 def change_day_id():
 
     user = User.query.filter_by(id=session["user_id"]).first()
+    routine = Routine.query.filter_by(id=user.user_routine).first()
 
-    if user.current_day_id >= 4:
+    if user.current_day_id >= routine.workouts[0].id + 3:
         user.current_day_id = session["beginning_day"]
     else:
         user.current_day_id = user.current_day_id + 1

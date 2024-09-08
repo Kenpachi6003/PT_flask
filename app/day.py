@@ -47,7 +47,7 @@ routines = {
             "dip machine",
             "tricep extension machine",
         ],
-        "ack and biceps": [
+        "back and biceps": [
             "lat pulldown machine",
             "seated row machine",
             "back extension machine",
@@ -64,8 +64,8 @@ routines = {
         ],
         "shoulders": [
             "machine shoulder press",
-            "lateral shoulder raises",
-            "reverse machine flys",
+            "dumbell lateral shoulder raises",
+            "rear delt fly machine",
             "shrugs",
             None,
         ],

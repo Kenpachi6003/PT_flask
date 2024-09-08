@@ -5,6 +5,7 @@
 <html>
     <head>
         <title>Workout Program</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='routine.css')}}">
     </head>
 
     <body>
@@ -13,16 +14,30 @@
 
         <div>
             {% for workout_name, workouts in routine_days.items() %}
-            <h1>{{workout_name}}</h1>
+            <h2>{{workout_name.title()}}</h2>
                 {% for workout, workout_link in workouts.items()%}
             <div>
-                <a href={{workout_link}}>{{workout}}</a>
+                <ul>
+                <li><a class="video-link" data-video-url="{{workout_link}}">{{workout.title()}}</a></li>
+                </ul>
                 
             </div>
                 {% endfor %}
             {% endfor %}
 
         </div>
+
+        <script>
+            // JavaScript to handle video link clicks
+            document.querySelectorAll('.video-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();  // Prevent the default link behavior
+                    const videoUrl = this.getAttribute('data-video-url');  // Get the video URL from the data attribute
+                    // Redirect to the play page with the video URL as a query parameter
+                    window.location.href = `/play?video_url=${encodeURIComponent(videoUrl)}`;
+                });
+            });
+        </script>
     </body>
 </html>
 {% endblock content%}

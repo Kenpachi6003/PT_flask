@@ -53,11 +53,21 @@ th.one {
 
 }
 
-.workout, .workout a {
+.workout {
+    display: flex;
     font-size: 20px;
     color: black;
     text-align: center;
+    
 
+}
+
+.workout a {
+    display: flex;
+    cursor: pointer;
+}
+.workout a:hover {
+    background-color: lightblue;
 }
 
 .change-day-id-btn {
@@ -98,7 +108,8 @@ th.one {
         font-size: 13.5px;
     }
 
-    th.link {
+    th.video-link {
         font-size: 10px;
     }
 }
+
