@@ -1,0 +1,51 @@
+body {
+    background-color: #4169e1;
+}
+
+.send-btn {
+    text-align: center;
+}
+
+.btn-btn-primary {
+    padding: 30px 40px;
+    font-size: 24px;
+    
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s ease; /* Smooth transition for resizing */
+}
+.btn-btn-primary:hover {
+    background-color: grey;
+    color: white;
+}
+/* Font size for small screens (e.g., phones) */
+@media screen and (max-width: 599px) {
+    h1 {
+        text-align: center;
+    }
+    .form-group {
+        text-align: center;
+        padding: 10px;
+        
+    }
+    .form-control {
+
+        height: 30px;
+        width: 200px;
+        font-size: 20px;
+    }
+
+    .form-control-msg {
+        height: 50px;
+        width:200px
+    }
+    .btn-btn-primary {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-left: 50px;
+        margin-top: 10px;
+    }
+}

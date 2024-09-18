@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navigation Bar</title>
+    <title>Responsive Navbar</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css')}}">
-    </head>
-    <body>
-        <div class="title">
-            <a href="/" class="active">Causey Fitness</a>
-        </div>
-        <nav class="navbar" id="navbar">
-            <a href="/">Home</a>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" class="brand">Causey Fitness</a>
+        <div class="menu" id="navMenu">
             <a href="routine">Routine</a>
             <a href="day">Day</a>
-            <a href="contact_us">Contact us</a>
-            <a href="about_me">About me</a>
-            <a href="login">Log in</a>
+            
+            <a href="contact_us">Contact</a>
             <a href="logout">Logout</a>
-        </nav>
-    {% block content%}
-    {% endblock %}
-    <script src="navbar.js"></script>
-    </body>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
+    </div>
+{%block content%}
+{% endblock content%}
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("navMenu");
+            if (menu.classList.contains("active")) {
+                menu.classList.remove("active");
+            } else {
+                menu.classList.add("active");
+            }
+        }
+    </script>
+</body>
 </html>

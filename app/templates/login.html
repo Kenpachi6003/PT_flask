@@ -3,7 +3,7 @@
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_account.css')}}">
 {% with messages = get_flashed_messages() %}
     {%if messages%}
         {% for msg in messages %}
@@ -11,11 +11,19 @@
         {% endfor %}
     {% endif %}
 {% endwith%}
-<h1>Log in</h1>
-<form action="#" method="POST">
-    <p><input type="text" name="username" placeholder="Username" /></p>
-    <p><input type="password" name ="password" placeholder="password" required="required"></p>
-    <p><input type="submit" value="submit" /></p>
-</form>
-<li><a href="http://127.0.0.1:5000/create_account">Create Account</a></li>
+<div class="container">
+    <form action="#" method="POST">
+        <h1>Log in</h1>
+        <div class="basic-info">
+            <p><input type="text" name="username" placeholder="Username" /></p>
+            <p><input type="password" name ="password" placeholder="password" required="required"></p>
+        </div>
+
+        <div class="submit-btn">
+            <button type="submit" value="submit" class="login-btn">Create Account</button>
+        </div>
+        <a class="create-account-link" href="http://127.0.0.1:5000/create_account">Create Account</a>
+    </form>
+</div>
+
 {% endblock %}

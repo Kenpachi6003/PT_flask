@@ -88,16 +88,16 @@ th.one {
 }
 
 
-    
 /* Font size for small screens (e.g., phones) */
 @media (max-width: 599px) {
     .workout {
-        font-size: 15px;
+        font-size: 14px;
     }
     .change-day-id-btn{
         font-size: 14px;
         padding: 8px 16px;
         margin-left: 10px;
+        margin-top: 10px;
         
     }
     .day_title {
@@ -111,5 +111,7 @@ th.one {
     th.video-link {
         font-size: 10px;
     }
+
+
 }
 

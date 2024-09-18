@@ -25,6 +25,8 @@ class Workouts(db.Model):
 class WorkoutsView(ModelView):
     column_list = ["id", "workout_name", "workout_link"]
 
+    column_searchable_list = ["workout_name"]
+
 
 class Test_Workouts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +47,10 @@ class User(UserMixin, db.Model):
     goal = db.Column(db.String(20), nullable=True)
     beginning_day_id = db.Column(db.Integer, nullable=True)
     current_day_id = db.Column(db.Integer, nullable=True)
+    routine_change_date = db.Column(db.Date, nullable=True)
     role = db.Column(db.String(50))
+    level = db.Column(db.String, nullable=False)
+    days_logged_in = db.Column(db.Integer)
     user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
 
 
@@ -57,6 +62,9 @@ class UserView(ModelView):
         "last_name",
         "user_routine",
         "role",
+        "level",
+        "days_logged_in",
+        "routine_change_date",
     ]
 
 
@@ -81,11 +89,8 @@ class Routine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     routine_name = db.Column(db.String)
     workouts = db.relationship("Day_of_routine", backref="routine")
+    routine_level = db.Column(db.String, nullable=True)
     users_with_routine = db.relationship("User", backref="routine")
-
-
-class RoutineView(ModelView):
-    column_list = ["id", "routine_name", "workouts", "users_with_routine"]
 
 
 class Day_of_routine(db.Model):
@@ -101,6 +106,16 @@ class Day_of_routine(db.Model):
     w5 = db.Column(db.String, nullable=True)
 
     routine_name = db.Column(db.String, db.ForeignKey("routine.routine_name"))
+
+
+class RoutineView(ModelView):
+    column_list = [
+        "id",
+        "routine_name",
+        "workouts",
+        "routine_level",
+        "users_with_routine",
+    ]
 
 
 class DayView(ModelView):

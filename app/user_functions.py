@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from app.models import User, db
+from datetime import date, timedelta
 
 
 def user_exists(model, username):
@@ -14,7 +15,16 @@ def user_exists(model, username):
 
 
 def create_user(
-    model, username, email, first_name, last_name, password, goal, role=None
+    model,
+    username,
+    email,
+    first_name,
+    last_name,
+    password,
+    goal,
+    level,
+    role=None,
+    user_routine=None,
 ):
     user = model(
         username=username,
@@ -23,7 +33,11 @@ def create_user(
         last_name=last_name,
         password=password,
         goal=goal,
+        routine_change_date=date.today() + timedelta(weeks=6),
         role=role,
+        level=level,
+        days_logged_in=0,
+        user_routine=user_routine,
     )
     db.session.add(user)
     db.session.commit()

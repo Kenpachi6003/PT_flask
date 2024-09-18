@@ -7,11 +7,15 @@ from flask_login import (
     logout_user,
     current_user,
 )
+from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 import os
+from dotenv import load_dotenv
 
 PT_flask = os.environ["PWD"]
 import sys
+import random
+from datetime import date, timedelta
 
 sys.path.insert(0, PT_flask)
 from datetime import timedelta
@@ -41,13 +45,20 @@ from app.workout_functions import (
     add_links_to_routine_days,
     filter_video_name,
 )
+from app.forms import ContactForm
 
 from app.user_functions import user_exists, create_user
-
+load_dotenv()
 app = Flask(__name__)
 admin = Admin(app, index_view=MyAdminIndexView())
 
-app.secret_key = "lLIeYDuz9k4Ki4OIme-ff09SczH_Gtteol-n-BnwMIw"
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'jcruz6003@gmail.com'
+app.config['MAIL_PASSWORD'] = 'pttv aagm uzqb gaym'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.secret_key = os.getenv('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -58,6 +69,7 @@ admin.add_view(RoutineView(Routine, db.session))
 admin.add_view(DayView(Day_of_routine, db.session))
 admin.add_view(WorkoutsView(Workouts, db.session))
 login_manager = LoginManager(app)
+mail = Mail(app)
 bcrypt = Bcrypt(app)
 app.permanent_session_lifetime = timedelta(days=1)
 
@@ -106,8 +118,28 @@ def login():
                 routine = Routine.query.filter_by(id=user.user_routine).first()
 
                 session["beginning_day"] = routine.workouts[0].id
-
+                user.days_logged_in += 1
+                db.session.commit()
                 flash("Login succesful!")
+                if date(2024, 10, 23) > user.routine_change_date:
+
+                    user.routine_change_date = date.today() + timedelta(weeks=6)
+                    next_routine = Routine.query.filter_by(
+                        routine_level=user.level
+                    ).all()
+
+                    while True:
+
+                        choice = random.choice(next_routine).id
+                        if choice != user.user_routine:
+
+                            user.user_routine = choice
+
+                            break
+
+                    db.session.commit()
+                    return redirect(url_for("day"))
+
                 return redirect(url_for("day"))
             return redirect(url_for("admin.index"))
         elif user is None:
@@ -127,13 +159,27 @@ def create_account():
         last_name = request.form["last_name"]
         password = request.form["password"]
         goal = request.form["goal"]
+        level = request.form["level"]
 
         if user_exists(User, username):
             flash("You already have an account")
             return redirect(url_for("login"))
 
         else:
-            create_user(User, username, email, first_name, last_name, password, goal)
+            routine = Routine.query.filter_by(routine_level=level).all()
+            assigned_routine = random.choice(routine)
+
+            create_user(
+                User,
+                username,
+                email,
+                first_name,
+                last_name,
+                password,
+                level,
+                goal,
+                user_routine=assigned_routine.id,
+            )
             flash("Account was created")
             return redirect(url_for("login"))
     return render_template("create_account.html")
@@ -199,6 +245,25 @@ def change_day_id():
     db.session.commit()
 
     return redirect(url_for("day"))
+
+@app.route("/contact_us", methods=["POST", "GET"])
+def contact_us():
+
+    form = ContactForm()
+    if form.validate_on_submit():
+
+        msg = Message(
+            subject= "Contact form submission",
+            sender=form.email.data,
+            recipients=['jcruz6003@gmail.com'],
+            body= f"Message from {form.name.data}: n\\{form.message.data}"
+        )
+        mail.send(msg)
+        flash("Message sent succesfully!")
+        redirect(url_for("contact_us"))
+
+    return render_template("contact_us.html", form=form)
+
 
 
 if __name__ == "__main__":

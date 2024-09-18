@@ -19,7 +19,9 @@ def main():
         "cruz",
         "loka1234",
         "build_muscle",
+        "beginner",
         "admin",
+        None,
     )
     create_user(
         User,
@@ -29,7 +31,9 @@ def main():
         "Causey",
         "loka1234",
         "build_muscle",
+        "advanced",
         None,
+        1,
     )
 
     add_workouts_to_model(
