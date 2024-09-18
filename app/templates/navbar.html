@@ -20,15 +20,7 @@
     </div>
 {%block content%}
 {% endblock content%}
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("navMenu");
-            if (menu.classList.contains("active")) {
-                menu.classList.remove("active");
-            } else {
-                menu.classList.add("active");
-            }
-        }
-    </script>
+<script src="{{ url_for('static', filename='navbar.js') }}"></script>
+
 </body>
 </html>
