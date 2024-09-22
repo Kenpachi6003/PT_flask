@@ -22,6 +22,9 @@ class User_data(BaseProvider):
     def password_test(self):
         return "loka1234"
 
+    def level_test(self):
+        return "advanced"
+
 
 class Contact_us_data(BaseProvider):
 

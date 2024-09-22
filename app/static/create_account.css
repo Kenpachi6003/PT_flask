@@ -10,9 +10,22 @@ body{
 
 }
 
-.create-account-btn, .login-btn {
-    padding: 30px 40px;
+h1 {
+    font-size: 50px;
+}
+
+.basic-info p input {
+        
+    height: auto;   
+    width: auto;
     font-size: 24px;
+    
+}
+
+.create-account-btn, .login-btn {
+    padding: 16px 32px;
+    font-size: 24px;
+    margin-bottom: 15px;
     
     border: none;
     border-radius: 5px;
@@ -26,7 +39,11 @@ body{
     color: white;
 }
 
+.login-link, .create-account-link {
 
+    font-size: 20px;
+    color: black;
+}
 
 
 @media screen and (max-width: 599px) {

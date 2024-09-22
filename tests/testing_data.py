@@ -20,13 +20,18 @@ fake.add_provider(Workout_data)
 
 
 class Day_data(BaseProvider):
-    def day(self):
-        return [
-            "incline barbell chest press",
-            "flat barbell bench press",
-            "decline barbell bench press",
-            "rope pulldowns",
-        ]
+
+    routine_name = "Free weight and cables"
+
+    workout_day_name = "chest and triceps"
+    w1 = "incline barbell benchpress"
+    w2 = "dumbell bench press"
+
+    w3 = "decline barbell benchpress"
+
+    w4 = "overhead tricep extension"
+
+    w5 = "rope pulldown"
 
 
 fake.add_provider(Day_data)

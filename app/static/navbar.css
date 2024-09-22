@@ -19,10 +19,11 @@ body {
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
+    font-size: 25px;
 }
 
 .navbar .brand {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
 }
 
@@ -60,6 +61,7 @@ body {
         text-align: left;
         padding: 10px 20px;
         border-bottom: 1px solid #ddd;
+        font-size: 15px;
     }
 
     /* Show the menu when it’s toggled */

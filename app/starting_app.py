@@ -36,10 +36,6 @@ from app.models import (
 )
 from app.info_to_insert import *
 from app.workout_functions import (
-    search,
-    create_workout,
-    remove_workout,
-    workout_exists,
     list_of_videos,
     routine_with_videos,
     add_links_to_routine_days,
@@ -48,17 +44,18 @@ from app.workout_functions import (
 from app.forms import ContactForm
 
 from app.user_functions import user_exists, create_user
+
 load_dotenv()
 app = Flask(__name__)
 admin = Admin(app, index_view=MyAdminIndexView())
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'jcruz6003@gmail.com'
-app.config['MAIL_PASSWORD'] = 'pttv aagm uzqb gaym'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.secret_key = os.getenv('SECRET_KEY')
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USERNAME"] = "jcruz6003@gmail.com"
+app.config["MAIL_PASSWORD"] = "pttv aagm uzqb gaym"
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+app.secret_key = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -88,15 +85,22 @@ def video():
     return render_template("video.html", video_urls=video_url)
 
 
-@app.route("/play")
+@app.route("/play", methods=["POST", "GET"])
 def play_video():
-    video_url = request.args.get("video_url")  # Get the video URL from query parameter
+    if "user_id" in session:
+        video_url = request.args.get(
+            "video_url"
+        )  # Get the video URL from query parameter
+        if request.method == "POST":
+            return redirect(url_for("day"))
+        else:
+            return render_template(
+                "play_video.html",
+                video_url=video_url,
+                workout_name=filter_video_name(video_url),
+            )
 
-    return render_template(
-        "play_video.html",
-        video_url=video_url,
-        workout_name=filter_video_name(video_url),
-    )
+    return redirect(url_for("login"))
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -246,6 +250,7 @@ def change_day_id():
 
     return redirect(url_for("day"))
 
+
 @app.route("/contact_us", methods=["POST", "GET"])
 def contact_us():
 
@@ -253,17 +258,16 @@ def contact_us():
     if form.validate_on_submit():
 
         msg = Message(
-            subject= "Contact form submission",
+            subject="Contact form submission",
             sender=form.email.data,
-            recipients=['jcruz6003@gmail.com'],
-            body= f"Message from {form.name.data}: n\\{form.message.data}"
+            recipients=["jcruz6003@gmail.com"],
+            body=f"Message from {form.name.data}: n\\{form.message.data}",
         )
         mail.send(msg)
         flash("Message sent succesfully!")
         redirect(url_for("contact_us"))
 
     return render_template("contact_us.html", form=form)
-
 
 
 if __name__ == "__main__":

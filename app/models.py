@@ -77,6 +77,13 @@ class Test_User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     goal = db.Column(db.String(20), nullable=True)
+    beginning_day_id = db.Column(db.Integer, nullable=True)
+    current_day_id = db.Column(db.Integer, nullable=True)
+    routine_change_date = db.Column(db.Date, nullable=True)
+    role = db.Column(db.String(50))
+    level = db.Column(db.String, nullable=False)
+    days_logged_in = db.Column(db.Integer)
+    user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
 
 
 # each user will have their own routine set up to them

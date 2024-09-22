@@ -2,7 +2,6 @@ from app.starting_app import app
 from app.user_functions import create_user
 from app.workout_functions import (
     add_workouts_to_model,
-    add_workouts_to_model,
     list_of_videos,
 )
 from app.models import Workouts, db, User
@@ -69,6 +68,8 @@ def main():
     add_workouts_to_model(
         Workouts, workouts_for_calves, "legs", "calves", list_of_videos()
     )
+
+    db.session.commit()
 
 
 if __name__ == "__main__":

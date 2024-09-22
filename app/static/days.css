@@ -73,6 +73,7 @@ th.one {
 .change-day-id-btn {
     padding: 30px 40px;
     font-size: 24px;
+    margin-top: 15px;
     
     border: none;
     border-radius: 5px;
@@ -101,7 +102,7 @@ th.one {
         
     }
     .day_title {
-        font-size: 20px;
+        font-size: 30px;
     }
 
     p {

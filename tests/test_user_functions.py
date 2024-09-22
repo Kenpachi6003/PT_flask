@@ -6,6 +6,7 @@ import sys
 
 sys.path.insert(0, PT_flask)
 from app.starting_app import app
+
 from app.user_functions import create_user, user_exists, delete_users
 from app.models import Test_User, db
 from user_testing_data import fake
@@ -31,7 +32,16 @@ class Test_user_functions:
                 user.last_name,
                 user.password,
                 user.goal,
-            ) == ("jcruz6003", "jcruz6003@gmail.com", "jose", "cruz", "loka1234", None)
+                user.level,
+            ) == (
+                "jcruz6003",
+                "jcruz6003@gmail.com",
+                "jose",
+                "cruz",
+                "loka1234",
+                None,
+                "advanced",
+            )
 
     def test_user_exists(self):
         with app.app_context():

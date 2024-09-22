@@ -45,6 +45,7 @@ def filter_video_name(video_name):
         "https://causey.s3.us-east-2.amazonaws.com/workout_vids/",
         ".mov",
         ".MOV",
+        ".mp4",
         "_",
     ]
     for delimiter in delimiters:
@@ -105,41 +106,5 @@ def add_workouts_to_model(model, workout_names, body_part, muscle_targeted, vide
         )
 
         db.session.add(workout)
-    return db.session.commit()
 
-
-def search(searched, model):
-    workouts = model.query.all()
-    exercises = []
-
-    for exercise in workouts:
-        if searched in exercise.workout_name:
-            exercises.append(exercise)
-        elif searched in exercise.body_part:
-            exercises.append(exercise)
-
-    return exercises
-
-
-def workout_exists(workout_name, model):
-    workouts = model.query.all()
-
-    for workout in workouts:
-        if workout_name == workout.workout_name:
-            return True
-    return False
-
-
-def create_workout(workout_name, body_part, muscle_targeted, model):
-    workout = model(
-        workout_name=workout_name, body_part=body_part, muscle_targeted=muscle_targeted
-    )
-    db.session.add(workout)
-    db.session.commit()
     return workout
-
-
-def remove_workout(workout_name, model):
-    workout = model.query.filter_by(workout_name=workout_name).first()
-    db.session.delete(workout)
-    return db.session.commit()

@@ -9,16 +9,25 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='play_video.css')}}">
 </head>
 <body>
+    <div class="container">
     <h1>{{ workout_name.title() }}</h1>
-
+    
+    <form action="#" method="POST">
     <!-- Video player -->
-    <video width="600" controls>
-        <source src="{{ video_url }}" type="video/mp4">
-        <source src="{{video_url }}" type="video/webm">
-        Your browser does not support the video tag.
-    </video>
-
+    <div class="video_container">
+        <video width="600" controls>
+            <source src="{{ video_url }}" type="video/mp4">
+            <source src="{{video_url }}" type="video/webm">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="submit-btn">
+        <button type="submit" value="submit" class="return-btn">Return to Day</button>
+    </div>
+    </form>
     <a href="day">Return back to routine</a>
+    </div>
+
 </body>
 </html>
 
