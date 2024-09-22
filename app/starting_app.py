@@ -8,6 +8,7 @@ from flask_login import (
     current_user,
 )
 from flask_mail import Mail, Message
+from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
@@ -47,7 +48,9 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 admin = Admin(app, index_view=MyAdminIndexView())
+migrate = Migrate(app, db)
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -56,7 +59,7 @@ app.config["MAIL_PASSWORD"] = "pttv aagm uzqb gaym"
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 app.secret_key = os.getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
