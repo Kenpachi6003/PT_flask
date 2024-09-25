@@ -13,6 +13,10 @@
         <div id="workouts">
             <h1 class="day_title">Day {{day.title()}}</h1>
             <p><b>Intensity is the amount of strength you should be using in your seperate Reps.</b></p>
+            <p>
+                Here is the routine we will be following, we will focus on keeping this in 3-5 sets with 12-15 repetitions.
+                We want to track your progress so please input your data in the input boxes.
+            </p>
             {% for workout, workout_link in workout_day.items() %}
             
                
@@ -27,15 +31,15 @@
                             <th class="one">Workout</th>
                             <th>Sets</th>
                             <th>Reps</th>
-                            <th>Intensity</th>
+                            <th>Weight lifted</th>
                         </tr>
                     </thead>
                     <tbody>
           
                             <th><a class="video-link" data-video-url="{{workout_link}}">{{workout.title()}}</a></th>
-                            <td>4-5</td>
-                            <td>12-15</td>
-                            <td>30, 50, 60, 70, 90</td>
+                            <td><input class="sets" name="sets"></td>
+                            <td><input class="reps" name="reps"></td>
+                            <td><input class="weight-lifted" name="weight_lifted"> lbs</td>
                         </tr>
                     </tbody>
                     </table>
@@ -49,18 +53,8 @@
                 </form>
             </div>
         </div>
+        <script src="{{ url_for('static', filename='day.js') }}"></script>
 
-        <script>
-            // JavaScript to handle video link clicks
-            document.querySelectorAll('.video-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();  // Prevent the default link behavior
-                    const videoUrl = this.getAttribute('data-video-url');  // Get the video URL from the data attribute
-                    // Redirect to the play page with the video URL as a query parameter
-                    window.location.href = `/play?video_url=${encodeURIComponent(videoUrl)}`;
-                });
-            });
-        </script>
     </body>
 </html>
 {% endblock content%}

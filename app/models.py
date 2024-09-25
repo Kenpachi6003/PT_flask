@@ -71,6 +71,7 @@ class UserProgress(db.Model):
     __tablename__ = "user_progress"
     id = db.Column("id", db.Integer, primary_key=True)
     sets = db.Column(db.Integer)
+    
 
 class UserProgressView(ModelView):
     column_list = [
