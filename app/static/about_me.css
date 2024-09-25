@@ -1,8 +1,32 @@
-body{background-color: #4169e1;
-    text-align: center;
+body{
     
+    background-color: #4169e1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     }
+
+.video_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+video {
+    width: 1000px;
+    height: 500px;
+    margin-top: 30px;
+}
 .about {
-    font-size: 40px;
+    
+    width: 1000px;
+    margin: 0 auto;
+}
+.about p{
+    background-color: white;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     
 }

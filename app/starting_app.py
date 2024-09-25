@@ -25,6 +25,8 @@ from app.models import (
     WorkoutsView,
     User,
     UserView,
+    UserProgress,
+    UserProgressView,
     Routine,
     RoutineView,
     Day_of_routine,
@@ -41,6 +43,7 @@ from app.workout_functions import (
     routine_with_videos,
     add_links_to_routine_days,
     filter_video_name,
+    about_me_loop_vid
 )
 from app.forms import ContactForm
 
@@ -68,6 +71,7 @@ admin.add_view(UserView(User, db.session))
 admin.add_view(RoutineView(Routine, db.session))
 admin.add_view(DayView(Day_of_routine, db.session))
 admin.add_view(WorkoutsView(Workouts, db.session))
+admin.add_view(UserProgressView(UserProgress, db.session))
 login_manager = LoginManager(app)
 mail = Mail(app)
 bcrypt = Bcrypt(app)
@@ -85,6 +89,7 @@ def load_user(user_id):
 @app.route("/video")
 def video():
     video_url = list_of_videos()
+    
     return render_template("video.html", video_urls=video_url)
 
 
@@ -204,7 +209,12 @@ def logout():
 
 @app.route("/about_me")
 def about_me():
-    return render_template("about_me.html")
+    
+    #I have always had a passion for health and fitness. Realizing my high school career kickstarting my love for bodybuilding, I wanted to facilitate that growth and spread the passion with my clients.
+    #        My skill set lies within strength training. I love pushing myself past my physical limitations and incorporating my love for bodybuilding. The art essentially becomes a hobby. 
+    #        I’ve always believed presenting a solution to any problem I encountered in my life so far. No one is going to care more about your future than you so when my back is against the wall I make sure to finish the job. For your future self will thank the You in the present for pushing through.
+    #        My clients like that I take a very no BS approach towards training. I wouldn’t put my clients through something I haven’t put myself through so the intensity and discipline expected from programmed training will definitely leave its mark.
+    return render_template("about_me.html", about_me_vid=about_me_loop_vid("push ups"))
 
 
 @app.route("/routine", methods=["POST", "GET"])

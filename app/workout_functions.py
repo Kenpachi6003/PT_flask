@@ -108,3 +108,12 @@ def add_workouts_to_model(model, workout_names, body_part, muscle_targeted, vide
         db.session.add(workout)
 
     return workout
+
+def about_me_loop_vid(video_name):
+
+    for video in list_of_videos():
+        if filter_video_name(video) == video_name:
+            video_link = video
+    return video_link
+
+print(about_me_loop_vid("about me"))
