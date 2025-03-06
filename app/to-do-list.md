@@ -19,5 +19,6 @@
 [-] make tests for my functions
 [-]i think that instead of querying users in the function, I should make the query the argument, it will make repetitive functions be only one
 [-]learn how to use faker
+[-]I want to track the progress from the users workout, day.html should send me the form information for sets reps and weight lifted
 [-]export PYTHONPATH='/home/kenpachiz/PT_flask'
 [-]add the video links to my workouts model

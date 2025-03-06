@@ -23,7 +23,7 @@
             <div class="workout">
                 
                 
-
+                
 
                 <table>
                     <thead>
@@ -31,15 +31,15 @@
                             <th class="one">Workout</th>
                             <th>Sets</th>
                             <th>Reps</th>
-                            <th>Weight lifted</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
           
                             <th><a class="video-link" data-video-url="{{workout_link}}">{{workout.title()}}</a></th>
-                            <td><input class="sets" name="sets"></td>
-                            <td><input class="reps" name="reps"></td>
-                            <td><input class="weight-lifted" name="weight_lifted"> lbs</td>
+                            <td>3-5</td>
+                            <td>12-15</td>
+                            
                         </tr>
                     </tbody>
                     </table>
@@ -52,6 +52,7 @@
                     <button data-id="{{day.id}}" type="submit" class="change-day-id-btn" value="change day id">Complete</button>
                 </form>
             </div>
+          
         </div>
         <script src="{{ url_for('static', filename='day.js') }}"></script>
 

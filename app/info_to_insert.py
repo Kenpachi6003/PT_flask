@@ -35,7 +35,7 @@ mid_chest_workouts = [
 lower_chest_workouts = [
     "chest dips",
     "decline barbell benchpress",
-    " cable crossover fly from upper pulley",
+    "cable crossover fly from upper pulley",
     "decline dumbbell fly",
     "decline dumbbell press",
     "decline champagnes",
@@ -121,28 +121,38 @@ workouts_for_bicep = [
 workouts_for_legs = [
     "leg press",
     "barbell squat",
-    "front squat",
-    "traditional deadlift",
-    "modified deadlift",
-    "romanian deadlift",
+    "goblet squat",
     "dumbell squat",
-    "dumbbell lunge",
-    "lateral lunge",
-    "dumbbell step-up",
-    "single leg bulgarian squat",
-    "heel raises",
-    "frog pump",
-    "hip abduction",
-    "hip adduction",
     "machine leg press",
+    "banded squat",
+    "squat hold",
+    "bodyweight squat",
+    "weighted jump squat",
+]
+
+workouts_for_glutes = [
+    "hip abduction",
+    "frog pump",
+    "glute bridge",
+    "single-leg glute bridge",
+    "hip_thrust",
+    "single-leg bench hip thrust",
+    "dumbell good morning",
+    "barbell good morning",
+]
+
+workouts_for_groin = [
+    "hip adduction",
+    "dumbbell lunge",
+    "lateral lunges",
+    "dumbbell walking lunge",
 ]
 
 workouts_for_quads = [
-    "Bulgarian split squat",
+    "bulgarian split squat",
     "bosu ball squat",
-    "bodyweight squat",
     "barbell front squat",
-    "goblet squat",
+    "front squat",
     "barbell box squat",
     "TRX single-leg squat",
     "TRX single-leg reverse lunge",
@@ -152,30 +162,21 @@ workouts_for_quads = [
     "wall sit",
     "180 squat jumps",
     "hack squat",
-    "leg press",
-    "weighted jump squat",
     "box jump",
     "duck walk",
     "kettlebell pistol squat",
     "lateral lunges",
     "dumbell step-up",
-    "dumbbell walking lunge",
     "leg extensions",
-    "barbell back squat",
     "dumbbell deficit sumo squat",
     "pistol squat",
     "squat to press and throw",
     "low sled push",
     "hang snatch",
-    "banded squat",
-    "squat hold",
+    "dumbbell step-up",
 ]
 
 workouts_for_hamstrings = [
-    "glute bridge",
-    "single-leg glute bridge",
-    "hip_thrust",
-    "single-leg bench hip thrust",
     "swiss ball hamstring curl",
     "cable_kickback",
     "kettlebell deadlift",
@@ -189,8 +190,6 @@ workouts_for_hamstrings = [
     "seated leg curls",
     "straight leg deadlift",
     "lying leg curls",
-    "dumbell good morning",
-    "barbell good morning",
     "pull through",
     "stiffleg deadlift",
     "seated leg curl",
@@ -202,6 +201,7 @@ workouts_for_calves = [
     "elevated calf raises",
     "single-leg calf raises",
     "calf raise machine",
+    "heel raises",
 ]
 
 # abdomen

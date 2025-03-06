@@ -23,9 +23,9 @@ class Workouts(db.Model):
 
 
 class WorkoutsView(ModelView):
-    column_list = ["id", "workout_name", "workout_link"]
+    column_list = ["id", "workout_name", "body_part", "muscle_targeted", "workout_link"]
 
-    column_searchable_list = ["workout_name"]
+    column_searchable_list = ["workout_name", "muscle_targeted"]
 
 
 class Test_Workouts(db.Model):
@@ -51,6 +51,7 @@ class User(UserMixin, db.Model):
     role = db.Column(db.String(50))
     level = db.Column(db.String, nullable=False)
     days_logged_in = db.Column(db.Integer)
+    
     user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
 
 
@@ -64,20 +65,24 @@ class UserView(ModelView):
         "role",
         "level",
         "days_logged_in",
+     
         "routine_change_date",
     ]
+
 
 class UserProgress(db.Model):
     __tablename__ = "user_progress"
     id = db.Column("id", db.Integer, primary_key=True)
+    workout_done = db.Column(db.String)
     sets = db.Column(db.Integer)
-    
+    reps = db.Column(db.Integer)
+    weight_lifted = db.Column(db.Integer)
+    date = db.Column(db.Date)
+
 
 class UserProgressView(ModelView):
-    column_list = [
-        "id",
-        "sets"
-    ]
+    column_list = ["id", "sets"]
+
 
 class Test_User(db.Model):
     __tablename__ = "test_users"
@@ -122,6 +127,9 @@ class Day_of_routine(db.Model):
     w3 = db.Column(db.String)
     w4 = db.Column(db.String)
     w5 = db.Column(db.String, nullable=True)
+    w6 = db.Column(db.String, nullable=True)
+    w7 = db.Column(db.String, nullable=True)
+    w8 = db.Column(db.String, nullable=True)
 
     routine_name = db.Column(db.String, db.ForeignKey("routine.routine_name"))
 
@@ -145,19 +153,29 @@ class DayView(ModelView):
         "w3",
         "w4",
         "w5",
+        "w6",
+        "w7",
+        "w8",
         "routine_name",
     ]
 
 
-class Test_Day(db.Model):
+class Test_Day_of_routine(db.Model):
+
     # w stands for workout
+    # Day could be the list of workouts that goes into Days
     id = db.Column(db.Integer, primary_key=True)
-    workout_day_name = db.Column(db.String, nullable=False)
+    workout_day_name = db.Column(db.String)
     w1 = db.Column(db.String)
     w2 = db.Column(db.String)
     w3 = db.Column(db.String)
     w4 = db.Column(db.String)
-    w5 = db.Column(db.String)
+    w5 = db.Column(db.String, nullable=True)
+    w6 = db.Column(db.String, nullable=True)
+    w7 = db.Column(db.String, nullable=True)
+    w8 = db.Column(db.String, nullable=True)
+
+    routine_name = db.Column(db.String, db.ForeignKey("routine.routine_name"))
 
 
 class Test_data(db.Model):

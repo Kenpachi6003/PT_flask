@@ -14,13 +14,12 @@ ul {
     list-style-type: circle;  /* You can also use circle, square, etc. */
 }
 
-/* Customize bullet point appearance */
-li {
-    margin-left: 40px;  /* Indent the bullet point */
-}
 
-li a {
+
+li a, ul {
     display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center; 
     cursor: pointer;
     color: black;
     font-size: 24px;
@@ -42,7 +41,5 @@ h1, h2{
         padding: 10px;
     }
 
-    li {
-        margin-left: 200px;
-    }
+
 }

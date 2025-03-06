@@ -43,7 +43,7 @@ from app.workout_functions import (
     routine_with_videos,
     add_links_to_routine_days,
     filter_video_name,
-    about_me_loop_vid
+    about_me_loop_vid,
 )
 from app.forms import ContactForm
 
@@ -61,7 +61,8 @@ app.config["MAIL_USERNAME"] = "jcruz6003@gmail.com"
 app.config["MAIL_PASSWORD"] = "pttv aagm uzqb gaym"
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
-app.secret_key = os.getenv("SECRET_KEY")
+app.config['SECRET_KEY'] = 'loka1234'
+#app.secret_key = os.getenv("SECRET_KEY")
 
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -89,7 +90,7 @@ def load_user(user_id):
 @app.route("/video")
 def video():
     video_url = list_of_videos()
-    
+
     return render_template("video.html", video_urls=video_url)
 
 
@@ -188,8 +189,8 @@ def create_account():
                 first_name,
                 last_name,
                 password,
-                level,
                 goal,
+                level,
                 user_routine=assigned_routine.id,
             )
             flash("Account was created")
@@ -209,11 +210,7 @@ def logout():
 
 @app.route("/about_me")
 def about_me():
-    
-    #I have always had a passion for health and fitness. Realizing my high school career kickstarting my love for bodybuilding, I wanted to facilitate that growth and spread the passion with my clients.
-    #        My skill set lies within strength training. I love pushing myself past my physical limitations and incorporating my love for bodybuilding. The art essentially becomes a hobby. 
-    #        I’ve always believed presenting a solution to any problem I encountered in my life so far. No one is going to care more about your future than you so when my back is against the wall I make sure to finish the job. For your future self will thank the You in the present for pushing through.
-    #        My clients like that I take a very no BS approach towards training. I wouldn’t put my clients through something I haven’t put myself through so the intensity and discipline expected from programmed training will definitely leave its mark.
+
     return render_template("about_me.html", about_me_vid=about_me_loop_vid("push ups"))
 
 
@@ -258,9 +255,13 @@ def change_day_id():
         user.current_day_id = session["beginning_day"]
     else:
         user.current_day_id = user.current_day_id + 1
+    # we will be adding a for loop right here
+    # the day_id should be user.current_day_id
+    # day_id = request.form["day_id"]
+    # sets = request.form["sets"]
+    # reps = request.form["reps"]
 
     db.session.commit()
-
     return redirect(url_for("day"))
 
 

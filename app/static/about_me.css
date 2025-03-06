@@ -24,9 +24,32 @@ video {
     margin: 0 auto;
 }
 .about p{
-    background-color: white;
+    
     font-size: 30px;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     
+}
+
+/* Font size for small screens (e.g., phones) */
+@media (max-width: 599px) {
+
+    video {
+        height: 200px;
+        width: 300px;
+    }
+
+    .about {
+        background-color: lightgray;
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .about p{
+        
+        font-size: 15px;
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+        
+    }
 }

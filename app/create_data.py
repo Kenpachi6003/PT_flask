@@ -26,7 +26,7 @@ def main():
         User,
         "chris",
         "chris6003@gmail.com",
-        "Christina",
+        "Christian",
         "Causey",
         "loka1234",
         "build_muscle",
@@ -47,9 +47,23 @@ def main():
     add_workouts_to_model(Workouts, workouts_for_back, "back", None, list_of_videos())
     add_workouts_to_model(
         Workouts,
-        front_delt_workouts + mid_delt_workouts + rear_delt_workouts,
+        front_delt_workouts,
         "shoulders",
-        None,
+        "anterior deltoids",
+        list_of_videos(),
+    )
+    add_workouts_to_model(
+        Workouts,
+        mid_delt_workouts,
+        "shoulders",
+        "mid deltoids",
+        list_of_videos(),
+    )
+    add_workouts_to_model(
+        Workouts,
+        rear_delt_workouts,
+        "shoulders",
+        "rear deltoids",
         list_of_videos(),
     )
     add_workouts_to_model(
@@ -58,7 +72,15 @@ def main():
     add_workouts_to_model(
         Workouts, workouts_for_bicep, "arms", "biceps", list_of_videos()
     )
-    add_workouts_to_model(Workouts, workouts_for_legs, "legs", None, list_of_videos())
+    add_workouts_to_model(
+        Workouts, workouts_for_legs, "legs", "fundamental legs", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, workouts_for_glutes, "legs", "glutes", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, workouts_for_groin, "legs", "groin", list_of_videos()
+    )
     add_workouts_to_model(
         Workouts, workouts_for_quads, "legs", "quads", list_of_videos()
     )
@@ -69,6 +91,22 @@ def main():
         Workouts, workouts_for_calves, "legs", "calves", list_of_videos()
     )
 
+    add_workouts_to_model(
+        Workouts, upper_abs_workouts, "abdomen", "abs", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, lower_abs_workouts, "abdomen", "abs", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, sixpack_workouts, "abdomen", "abs", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, oblique_workouts, "abdomen", "abs", list_of_videos()
+    )
+    add_workouts_to_model(
+        Workouts, complete_abs_workouts, "abdomen", "abs", list_of_videos()
+    )
+    add_workouts_to_model(Workouts, core_workouts, "abdomen", "abs", list_of_videos())
     db.session.commit()
 
 
