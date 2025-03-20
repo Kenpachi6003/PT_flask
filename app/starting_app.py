@@ -8,7 +8,6 @@ from flask_login import (
     current_user,
 )
 from flask_mail import Mail, Message
-from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
@@ -53,7 +52,6 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
 admin = Admin(app, index_view=MyAdminIndexView())
-migrate = Migrate(app, db)
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -180,6 +178,7 @@ def create_account():
 
         else:
             routine = Routine.query.filter_by(routine_level=level).all()
+            breakpoint()
             assigned_routine = random.choice(routine)
 
             create_user(
