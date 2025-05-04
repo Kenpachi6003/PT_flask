@@ -50,8 +50,8 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
-app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -217,7 +217,7 @@ def about_me():
 @app.route("/routine", methods=["POST", "GET"])
 def routine():
     if "user_id" in session:
-        breakpoint()
+        
         routines = Routine.query.filter_by(id=session["user_id"]).first()
 
         routines1 = routine_with_videos(routines, Workouts.query.all())
