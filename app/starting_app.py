@@ -51,7 +51,7 @@ from app.user_functions import user_exists, create_user
 load_dotenv()
 app = Flask(__name__)
 #app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
-app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/ptraining.db'
+app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
