@@ -49,7 +49,7 @@ class User(UserMixin, db.Model):
     current_day_id = db.Column(db.Integer, nullable=True)
     routine_change_date = db.Column(db.Date, nullable=True)
     role = db.Column(db.String(50))
-    level = db.Column(db.String, nullable=False)
+    level = db.Column(db.String)
     days_logged_in = db.Column(db.Integer)
     
     user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
@@ -57,6 +57,7 @@ class User(UserMixin, db.Model):
 
 class UserView(ModelView):
     column_list = [
+        "id",
         "username",
         "email",
         "first_name",

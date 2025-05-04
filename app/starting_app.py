@@ -169,16 +169,16 @@ def create_account():
         first_name = request.form["first_name"]
         last_name = request.form["last_name"]
         password = request.form["password"]
-        goal = request.form["goal"]
-        level = request.form["level"]
+        #goal = request.form["goal"]
+        #level = request.form["level"]
 
         if user_exists(User, username):
             flash("You already have an account")
             return redirect(url_for("login"))
 
         else:
-            routine = Routine.query.filter_by(routine_level=level).all()
-            breakpoint()
+            routine = Routine.query.filter_by(id=1).all()
+            
             assigned_routine = random.choice(routine)
 
             create_user(
@@ -188,8 +188,8 @@ def create_account():
                 first_name,
                 last_name,
                 password,
-                goal,
-                level,
+                None,
+                None,
                 user_routine=assigned_routine.id,
             )
             flash("Account was created")
@@ -216,7 +216,8 @@ def about_me():
 @app.route("/routine", methods=["POST", "GET"])
 def routine():
     if "user_id" in session:
-        routines = Routine.query.filter_by(id=1).first()
+        breakpoint()
+        routines = Routine.query.filter_by(id=session["user_id"]).first()
 
         routines1 = routine_with_videos(routines, Workouts.query.all())
         # breakpoint()

@@ -22,7 +22,7 @@ def create_user(
     last_name,
     password,
     goal,
-    level,
+    level=None,
     role=None,
     user_routine=None,
 ):
