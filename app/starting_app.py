@@ -12,12 +12,12 @@ from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
 
-PT_flask = os.environ["PWD"]
+#PT_flask = os.environ["PWD"]
 import sys
 import random
 from datetime import date, timedelta
 
-sys.path.insert(0, PT_flask)
+#sys.path.insert(0, PT_flask)
 from datetime import timedelta
 from app.models import (
     Workouts,
@@ -50,7 +50,8 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
