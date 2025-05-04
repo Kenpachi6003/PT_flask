@@ -10,11 +10,11 @@
     <div class="navbar">
         <a href="/" class="brand">TalaveraFitness</a>
         <div class="menu" id="navMenu">
-            <a href="routine">Routine</a>
-            <a href="day">Day</a>
-            <a href="about_me">About</a>
-            <a href="contact_us">Contact</a>
-            <a href="logout">Logout</a>
+            <a href="{{url_for('routine')}}">Routine</a>
+            <a href="{{url_for('day')}}">Day</a>
+            <a href="{{url_for('about_me')}}">About</a>
+            <a href="{{url_for('contact_us')}}">Contact</a>
+            <a href="{{url_for('logout')}}">Logout</a>
         </div>
         <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
     </div>
