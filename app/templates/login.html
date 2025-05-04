@@ -12,15 +12,15 @@
     {% endif %}
 {% endwith%}
 <div class="container">
-    <form action="#" method="POST">
+    <form action="{{ url_for('login') }}" method="POST">
         <h1>Log in</h1>
         <div class="basic-info">
             <p><input type="text" name="username" placeholder="Username" /></p>
-            <p><input type="password" name ="password" placeholder="password" required="required"></p>
+            <p><input type="password" name="password" placeholder="password" required="required"></p>
         </div>
 
         <div class="submit-btn">
-            <button type="submit" value="submit" class="login-btn">Login</button>
+            <button type="submit" class="login-btn">Login</button>
         </div>
         <a class="create-account-link" href="{{url_for('create_account')}}">Create Account</a>
     </form>
