@@ -69,6 +69,9 @@ class UserView(ModelView):
      
         "routine_change_date",
     ]
+    def on_model_change(self, form, model, is_created):
+        print("Model being edited:", model)
+        super().on_model_change(form, model, is_created)
 
 
 class UserProgress(db.Model):
