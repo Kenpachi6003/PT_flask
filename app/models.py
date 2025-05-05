@@ -10,7 +10,8 @@ from flask_login import (
 )
 from flask_admin.contrib.sqla import ModelView
 from flask import Flask, redirect, render_template, request, flash, url_for, session
-from wtforms import PasswordField, StringField, validators
+from wtforms import PasswordField, StringField
+from wtforms.validators import DataRequired, Email
 
 db = SQLAlchemy()
 
@@ -29,8 +30,8 @@ class WorkoutsView(ModelView):
     form_columns = ["workout_name", "body_part", "muscle_targeted", "workout_link"]
 
     form_args = {
-        'workout_name': {'validators': [validators.required()]},
-        'body_part': {'validators': [validators.required()]},
+        'workout_name': {'validators': [DataRequired()]},
+        'body_part': {'validators': [DataRequired()]},
     }
 
     def is_accessible(self):
@@ -103,11 +104,11 @@ class UserView(ModelView):
     ]
 
     form_args = {
-        'username': {'validators': [validators.required()]},
-        'email': {'validators': [validators.required(), validators.email()]},
-        'first_name': {'validators': [validators.required()]},
-        'last_name': {'validators': [validators.required()]},
-        'password': {'validators': [validators.required()]},
+        'username': {'validators': [DataRequired()]},
+        'email': {'validators': [DataRequired(), Email()]},
+        'first_name': {'validators': [DataRequired()]},
+        'last_name': {'validators': [DataRequired()]},
+        'password': {'validators': [DataRequired()]},
     }
 
     def is_accessible(self):
@@ -150,7 +151,7 @@ class UserProgressView(ModelView):
     form_columns = ["sets"]
 
     form_args = {
-        'sets': {'validators': [validators.required()]},
+        'sets': {'validators': [DataRequired()]},
     }
 
     def is_accessible(self):
@@ -229,8 +230,8 @@ class RoutineView(ModelView):
     form_columns = ["routine_name", "routine_level"]
 
     form_args = {
-        'routine_name': {'validators': [validators.required()]},
-        'routine_level': {'validators': [validators.required()]},
+        'routine_name': {'validators': [DataRequired()]},
+        'routine_level': {'validators': [DataRequired()]},
     }
 
     def is_accessible(self):
@@ -276,8 +277,8 @@ class DayView(ModelView):
     ]
 
     form_args = {
-        'workout_day_name': {'validators': [validators.required()]},
-        'routine_name': {'validators': [validators.required()]},
+        'workout_day_name': {'validators': [DataRequired()]},
+        'routine_name': {'validators': [DataRequired()]},
     }
 
     def is_accessible(self):
