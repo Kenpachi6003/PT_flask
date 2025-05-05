@@ -27,6 +27,15 @@ class WorkoutsView(ModelView):
     column_searchable_list = ["workout_name", "muscle_targeted"]
     form_columns = ["workout_name", "body_part", "muscle_targeted", "workout_link"]
 
+    def create_form(self, obj=None):
+        form = super().create_form(obj)
+        form.workout_name.flags = {'required': True}
+        return form
+
+    def edit_form(self, obj=None):
+        form = super().edit_form(obj)
+        return form
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
 
@@ -95,7 +104,17 @@ class UserView(ModelView):
         "days_logged_in",
         "routine_change_date"
     ]
-    
+
+    def create_form(self, obj=None):
+        form = super().create_form(obj)
+        form.password.flags = {'required': True}
+        return form
+
+    def edit_form(self, obj=None):
+        form = super().edit_form(obj)
+        form.password.flags = {'required': False}
+        return form
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
 
@@ -105,7 +124,6 @@ class UserView(ModelView):
     def on_model_change(self, form, model, is_created):
         try:
             if is_created:
-                # Handle new user creation
                 model.password = form.password.data
             super().on_model_change(form, model, is_created)
             db.session.commit()
@@ -135,6 +153,15 @@ class UserProgress(db.Model):
 class UserProgressView(ModelView):
     column_list = ["id", "sets"]
     form_columns = ["sets"]
+
+    def create_form(self, obj=None):
+        form = super().create_form(obj)
+        form.sets.flags = {'required': True}
+        return form
+
+    def edit_form(self, obj=None):
+        form = super().edit_form(obj)
+        return form
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -211,6 +238,15 @@ class RoutineView(ModelView):
     ]
     form_columns = ["routine_name", "routine_level"]
 
+    def create_form(self, obj=None):
+        form = super().create_form(obj)
+        form.routine_name.flags = {'required': True}
+        return form
+
+    def edit_form(self, obj=None):
+        form = super().edit_form(obj)
+        return form
+
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
 
@@ -252,6 +288,15 @@ class DayView(ModelView):
         "w8",
         "routine_name"
     ]
+
+    def create_form(self, obj=None):
+        form = super().create_form(obj)
+        form.workout_day_name.flags = {'required': True}
+        return form
+
+    def edit_form(self, obj=None):
+        form = super().edit_form(obj)
+        return form
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
