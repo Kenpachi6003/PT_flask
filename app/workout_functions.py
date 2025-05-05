@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import boto3
-from app.models import Workouts, db
+from app.models import Workouts, Routine,User, db
 from app.info_to_insert import *
 
 s3 = boto3.client("s3")
@@ -86,8 +86,8 @@ def add_links_to_routine_days(day, workouts_model):
 # and I want each workout to be linked to its video
 def routine_with_videos(routine_model, workouts_model):
     routine_days = {}
-
-    for routine_day in routine_model.workouts:
+    
+    for routine_day in User.query.filter_by(id=routine_model.id).first().routine.workouts:
 
         routine_days[routine_day.workout_day_name] = add_links_to_routine_days(
             routine_day, workouts_model

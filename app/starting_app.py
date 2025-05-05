@@ -225,9 +225,9 @@ def routine():
     if "user_id" in session:
         
         routines = Routine.query.filter_by(id=session["user_id"]).first()
-
-        routines1 = routine_with_videos(routines, Workouts.query.all())
-        # breakpoint()
+        
+        routines1 = routine_with_videos(User.query.filter_by(id=session["user_id"]).first(), Workouts.query.all())
+        
         return render_template("routine.html", routine_days=routines1)
     else:
         return redirect(url_for("login"))
