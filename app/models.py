@@ -10,6 +10,7 @@ from flask_login import (
 )
 from flask_admin.contrib.sqla import ModelView
 from flask import Flask, redirect, render_template, request, flash, url_for, session
+from wtforms import PasswordField, StringField, validators
 
 db = SQLAlchemy()
 
@@ -27,14 +28,10 @@ class WorkoutsView(ModelView):
     column_searchable_list = ["workout_name", "muscle_targeted"]
     form_columns = ["workout_name", "body_part", "muscle_targeted", "workout_link"]
 
-    def create_form(self, obj=None):
-        form = super().create_form(obj)
-        form.workout_name.flags = {'required': True}
-        return form
-
-    def edit_form(self, obj=None):
-        form = super().edit_form(obj)
-        return form
+    form_args = {
+        'workout_name': {'validators': [validators.required()]},
+        'body_part': {'validators': [validators.required()]},
+    }
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -105,15 +102,13 @@ class UserView(ModelView):
         "routine_change_date"
     ]
 
-    def create_form(self, obj=None):
-        form = super().create_form(obj)
-        form.password.flags = {'required': True}
-        return form
-
-    def edit_form(self, obj=None):
-        form = super().edit_form(obj)
-        form.password.flags = {'required': False}
-        return form
+    form_args = {
+        'username': {'validators': [validators.required()]},
+        'email': {'validators': [validators.required(), validators.email()]},
+        'first_name': {'validators': [validators.required()]},
+        'last_name': {'validators': [validators.required()]},
+        'password': {'validators': [validators.required()]},
+    }
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -154,14 +149,9 @@ class UserProgressView(ModelView):
     column_list = ["id", "sets"]
     form_columns = ["sets"]
 
-    def create_form(self, obj=None):
-        form = super().create_form(obj)
-        form.sets.flags = {'required': True}
-        return form
-
-    def edit_form(self, obj=None):
-        form = super().edit_form(obj)
-        return form
+    form_args = {
+        'sets': {'validators': [validators.required()]},
+    }
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -238,14 +228,10 @@ class RoutineView(ModelView):
     ]
     form_columns = ["routine_name", "routine_level"]
 
-    def create_form(self, obj=None):
-        form = super().create_form(obj)
-        form.routine_name.flags = {'required': True}
-        return form
-
-    def edit_form(self, obj=None):
-        form = super().edit_form(obj)
-        return form
+    form_args = {
+        'routine_name': {'validators': [validators.required()]},
+        'routine_level': {'validators': [validators.required()]},
+    }
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -289,14 +275,10 @@ class DayView(ModelView):
         "routine_name"
     ]
 
-    def create_form(self, obj=None):
-        form = super().create_form(obj)
-        form.workout_day_name.flags = {'required': True}
-        return form
-
-    def edit_form(self, obj=None):
-        form = super().edit_form(obj)
-        return form
+    form_args = {
+        'workout_day_name': {'validators': [validators.required()]},
+        'routine_name': {'validators': [validators.required()]},
+    }
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
