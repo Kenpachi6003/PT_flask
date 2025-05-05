@@ -10,8 +10,9 @@ from flask_login import (
 )
 from flask_admin.contrib.sqla import ModelView
 from flask import Flask, redirect, render_template, request, flash, url_for, session
-from wtforms import PasswordField, StringField, Form
-from wtforms.validators import DataRequired, Email
+from wtforms import PasswordField, StringField, Form, IntegerField, DateField
+from wtforms.validators import DataRequired, Email, Optional
+from datetime import date, timedelta
 
 db = SQLAlchemy()
 
@@ -27,8 +28,8 @@ class Workouts(db.Model):
 class WorkoutForm(Form):
     workout_name = StringField('Workout Name', validators=[DataRequired()])
     body_part = StringField('Body Part', validators=[DataRequired()])
-    muscle_targeted = StringField('Muscle Targeted')
-    workout_link = StringField('Workout Link')
+    muscle_targeted = StringField('Muscle Targeted', validators=[Optional()])
+    workout_link = StringField('Workout Link', validators=[Optional()])
 
 
 class WorkoutsView(ModelView):
@@ -84,11 +85,14 @@ class UserForm(Form):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    role = StringField('Role')
-    level = StringField('Level')
-    user_routine = StringField('User Routine')
-    days_logged_in = StringField('Days Logged In')
-    routine_change_date = StringField('Routine Change Date')
+    role = StringField('Role', validators=[Optional()])
+    level = StringField('Level', validators=[Optional()])
+    user_routine = IntegerField('User Routine', validators=[Optional()])
+    days_logged_in = IntegerField('Days Logged In', validators=[Optional()])
+    routine_change_date = DateField('Routine Change Date', validators=[Optional()])
+    goal = StringField('Goal', validators=[Optional()])
+    beginning_day_id = IntegerField('Beginning Day ID', validators=[Optional()])
+    current_day_id = IntegerField('Current Day ID', validators=[Optional()])
 
 
 class UserView(ModelView):
@@ -117,6 +121,9 @@ class UserView(ModelView):
         try:
             if is_created:
                 model.password = form.password.data
+                # Set default values for new users
+                model.days_logged_in = 0
+                model.routine_change_date = date.today() + timedelta(weeks=6)
             super().on_model_change(form, model, is_created)
             db.session.commit()
         except Exception as e:
@@ -143,7 +150,7 @@ class UserProgress(db.Model):
 
 
 class UserProgressForm(Form):
-    sets = StringField('Sets', validators=[DataRequired()])
+    sets = IntegerField('Sets', validators=[DataRequired()])
 
 
 class UserProgressView(ModelView):
@@ -247,14 +254,14 @@ class RoutineView(ModelView):
 
 class DayForm(Form):
     workout_day_name = StringField('Workout Day Name', validators=[DataRequired()])
-    w1 = StringField('Workout 1')
-    w2 = StringField('Workout 2')
-    w3 = StringField('Workout 3')
-    w4 = StringField('Workout 4')
-    w5 = StringField('Workout 5')
-    w6 = StringField('Workout 6')
-    w7 = StringField('Workout 7')
-    w8 = StringField('Workout 8')
+    w1 = StringField('Workout 1', validators=[Optional()])
+    w2 = StringField('Workout 2', validators=[Optional()])
+    w3 = StringField('Workout 3', validators=[Optional()])
+    w4 = StringField('Workout 4', validators=[Optional()])
+    w5 = StringField('Workout 5', validators=[Optional()])
+    w6 = StringField('Workout 6', validators=[Optional()])
+    w7 = StringField('Workout 7', validators=[Optional()])
+    w8 = StringField('Workout 8', validators=[Optional()])
     routine_name = StringField('Routine Name', validators=[DataRequired()])
 
 
