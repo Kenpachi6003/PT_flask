@@ -24,8 +24,22 @@ class Workouts(db.Model):
 
 class WorkoutsView(ModelView):
     column_list = ["id", "workout_name", "body_part", "muscle_targeted", "workout_link"]
-
     column_searchable_list = ["workout_name", "muscle_targeted"]
+    form_columns = ["workout_name", "body_part", "muscle_targeted", "workout_link"]
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login"))
+
+    def on_model_change(self, form, model, is_created):
+        try:
+            super().on_model_change(form, model, is_created)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating workout: {str(e)}", "error")
 
 
 class Test_Workouts(db.Model):
@@ -66,12 +80,46 @@ class UserView(ModelView):
         "role",
         "level",
         "days_logged_in",
-     
         "routine_change_date",
     ]
+    
+    form_columns = [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "password",
+        "role",
+        "level",
+        "user_routine",
+        "days_logged_in",
+        "routine_change_date"
+    ]
+    
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login"))
+
     def on_model_change(self, form, model, is_created):
-        print("Model being edited:", model)
-        super().on_model_change(form, model, is_created)
+        try:
+            if is_created:
+                # Handle new user creation
+                model.password = form.password.data
+            super().on_model_change(form, model, is_created)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating user: {str(e)}", "error")
+
+    def on_model_delete(self, model):
+        try:
+            super().on_model_delete(model)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error deleting user: {str(e)}", "error")
 
 
 class UserProgress(db.Model):
@@ -86,6 +134,21 @@ class UserProgress(db.Model):
 
 class UserProgressView(ModelView):
     column_list = ["id", "sets"]
+    form_columns = ["sets"]
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login"))
+
+    def on_model_change(self, form, model, is_created):
+        try:
+            super().on_model_change(form, model, is_created)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating user progress: {str(e)}", "error")
 
 
 class Test_User(db.Model):
@@ -146,6 +209,21 @@ class RoutineView(ModelView):
         "routine_level",
         "users_with_routine",
     ]
+    form_columns = ["routine_name", "routine_level"]
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login"))
+
+    def on_model_change(self, form, model, is_created):
+        try:
+            super().on_model_change(form, model, is_created)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating routine: {str(e)}", "error")
 
 
 class DayView(ModelView):
@@ -162,6 +240,32 @@ class DayView(ModelView):
         "w8",
         "routine_name",
     ]
+    form_columns = [
+        "workout_day_name",
+        "w1",
+        "w2",
+        "w3",
+        "w4",
+        "w5",
+        "w6",
+        "w7",
+        "w8",
+        "routine_name"
+    ]
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.role == "admin"
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login"))
+
+    def on_model_change(self, form, model, is_created):
+        try:
+            super().on_model_change(form, model, is_created)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error updating day: {str(e)}", "error")
 
 
 class Test_Day_of_routine(db.Model):

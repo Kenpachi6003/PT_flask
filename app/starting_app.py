@@ -54,6 +54,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
+# Email configuration
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USERNAME"] = "jcruz6003@gmail.com"
@@ -67,11 +68,16 @@ app.config['SECRET_KEY'] = 'loka1234'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-admin.add_view(UserView(User, db.session))
-admin.add_view(RoutineView(Routine, db.session))
-admin.add_view(DayView(Day_of_routine, db.session))
-admin.add_view(WorkoutsView(Workouts, db.session))
-admin.add_view(UserProgressView(UserProgress, db.session))
+# Initialize admin views with error handling
+try:
+    admin.add_view(UserView(User, db.session))
+    admin.add_view(RoutineView(Routine, db.session))
+    admin.add_view(DayView(Day_of_routine, db.session))
+    admin.add_view(WorkoutsView(Workouts, db.session))
+    admin.add_view(UserProgressView(UserProgress, db.session))
+except Exception as e:
+    print(f"Error initializing admin views: {str(e)}")
+
 login_manager = LoginManager(app)
 mail = Mail(app)
 bcrypt = Bcrypt(app)
