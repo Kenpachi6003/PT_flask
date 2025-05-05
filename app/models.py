@@ -10,7 +10,7 @@ from flask_login import (
 )
 from flask_admin.contrib.sqla import ModelView
 from flask import Flask, redirect, render_template, request, flash, url_for, session
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, Form
 from wtforms.validators import DataRequired, Email
 
 db = SQLAlchemy()
@@ -24,15 +24,17 @@ class Workouts(db.Model):
     workout_link = db.Column(db.String, nullable=True)
 
 
+class WorkoutForm(Form):
+    workout_name = StringField('Workout Name', validators=[DataRequired()])
+    body_part = StringField('Body Part', validators=[DataRequired()])
+    muscle_targeted = StringField('Muscle Targeted')
+    workout_link = StringField('Workout Link')
+
+
 class WorkoutsView(ModelView):
     column_list = ["id", "workout_name", "body_part", "muscle_targeted", "workout_link"]
     column_searchable_list = ["workout_name", "muscle_targeted"]
-    form_columns = ["workout_name", "body_part", "muscle_targeted", "workout_link"]
-
-    form_args = {
-        'workout_name': {'validators': [DataRequired()]},
-        'body_part': {'validators': [DataRequired()]},
-    }
+    form = WorkoutForm
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -76,6 +78,19 @@ class User(UserMixin, db.Model):
     user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
 
 
+class UserForm(Form):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    role = StringField('Role')
+    level = StringField('Level')
+    user_routine = StringField('User Routine')
+    days_logged_in = StringField('Days Logged In')
+    routine_change_date = StringField('Routine Change Date')
+
+
 class UserView(ModelView):
     column_list = [
         "id",
@@ -90,26 +105,7 @@ class UserView(ModelView):
         "routine_change_date",
     ]
     
-    form_columns = [
-        "username",
-        "email",
-        "first_name",
-        "last_name",
-        "password",
-        "role",
-        "level",
-        "user_routine",
-        "days_logged_in",
-        "routine_change_date"
-    ]
-
-    form_args = {
-        'username': {'validators': [DataRequired()]},
-        'email': {'validators': [DataRequired(), Email()]},
-        'first_name': {'validators': [DataRequired()]},
-        'last_name': {'validators': [DataRequired()]},
-        'password': {'validators': [DataRequired()]},
-    }
+    form = UserForm
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -146,13 +142,13 @@ class UserProgress(db.Model):
     date = db.Column(db.Date)
 
 
+class UserProgressForm(Form):
+    sets = StringField('Sets', validators=[DataRequired()])
+
+
 class UserProgressView(ModelView):
     column_list = ["id", "sets"]
-    form_columns = ["sets"]
-
-    form_args = {
-        'sets': {'validators': [DataRequired()]},
-    }
+    form = UserProgressForm
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -219,6 +215,11 @@ class Day_of_routine(db.Model):
     routine_name = db.Column(db.String, db.ForeignKey("routine.routine_name"))
 
 
+class RoutineForm(Form):
+    routine_name = StringField('Routine Name', validators=[DataRequired()])
+    routine_level = StringField('Routine Level', validators=[DataRequired()])
+
+
 class RoutineView(ModelView):
     column_list = [
         "id",
@@ -227,12 +228,7 @@ class RoutineView(ModelView):
         "routine_level",
         "users_with_routine",
     ]
-    form_columns = ["routine_name", "routine_level"]
-
-    form_args = {
-        'routine_name': {'validators': [DataRequired()]},
-        'routine_level': {'validators': [DataRequired()]},
-    }
+    form = RoutineForm
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
@@ -249,6 +245,19 @@ class RoutineView(ModelView):
             flash(f"Error updating routine: {str(e)}", "error")
 
 
+class DayForm(Form):
+    workout_day_name = StringField('Workout Day Name', validators=[DataRequired()])
+    w1 = StringField('Workout 1')
+    w2 = StringField('Workout 2')
+    w3 = StringField('Workout 3')
+    w4 = StringField('Workout 4')
+    w5 = StringField('Workout 5')
+    w6 = StringField('Workout 6')
+    w7 = StringField('Workout 7')
+    w8 = StringField('Workout 8')
+    routine_name = StringField('Routine Name', validators=[DataRequired()])
+
+
 class DayView(ModelView):
     column_list = [
         "id",
@@ -263,23 +272,7 @@ class DayView(ModelView):
         "w8",
         "routine_name",
     ]
-    form_columns = [
-        "workout_day_name",
-        "w1",
-        "w2",
-        "w3",
-        "w4",
-        "w5",
-        "w6",
-        "w7",
-        "w8",
-        "routine_name"
-    ]
-
-    form_args = {
-        'workout_day_name': {'validators': [DataRequired()]},
-        'routine_name': {'validators': [DataRequired()]},
-    }
+    form = DayForm
 
     def is_accessible(self):
         return current_user.is_authenticated and current_user.role == "admin"
