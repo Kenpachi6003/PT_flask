@@ -1,3 +1,6 @@
+"""
+This file is used to create the data inserting into the workouts model.
+"""
 from app.starting_app import app
 from app.user_functions import create_user
 from app.workout_functions import (

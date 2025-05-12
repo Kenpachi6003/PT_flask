@@ -1,3 +1,7 @@
+"""
+This file takes the data in all_routines.py and adds them to our days_of_routine model.
+"""
+
 import os
 
 PT_flask = os.environ["PWD"]
@@ -57,9 +61,12 @@ def add_days_to_routine(model, routine, routine_name):
 
 def main():
     for routine in routines:
-
-        added_day = add_days_to_routine(Day_of_routine, routines[routine], routine)
-        db.session.commit()
+        routine_in_db = Day_of_routine.query.filter_by(routine_name=routine).first()
+        if routine_in_db:
+            print(f"Routine {routine} already exists")
+        else:
+            added_day = add_days_to_routine(Day_of_routine, routines[routine], routine)
+            db.session.commit()
 
 
 if __name__ == "__main__":

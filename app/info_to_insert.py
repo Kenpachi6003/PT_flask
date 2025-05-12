@@ -30,6 +30,8 @@ mid_chest_workouts = [
     "close grip push-up",
     "chest press",
     "machine flys",
+    "banded floor press",
+    "banded chest flyes",
 ]
 
 lower_chest_workouts = [
@@ -72,6 +74,8 @@ workouts_for_back = [
     "lat pulldown machine",
     "seated row machine",
     "back extension machine",
+    "banded bentover row",
+    "banded reverse flyes",
 ]
 
 # arm
@@ -91,7 +95,7 @@ rear_delt_workouts = [
     "rear delt fly machine",
 ]
 
-mid_delt_workouts = ["dumbell lateral shoulder raises", "arnold press", "shrugs"]
+mid_delt_workouts = ["dumbell lateral shoulder raises", "arnold press", "shrugs", "banded lateral raises", "banded shoulder press"]
 
 workouts_for_tricep = [
     "overhead tricep extension",
@@ -104,6 +108,8 @@ workouts_for_tricep = [
     "skullcrusher",
     "dip machine",
     "tricep extension machine",
+    "banded overhead tricep extension",
+    "banded tricep kickbacks",
 ]
 
 workouts_for_bicep = [
@@ -115,6 +121,9 @@ workouts_for_bicep = [
     "straightbar curl",
     "bicep curl machine",
     "concentration curl machine",
+    "banded bicep curls",
+    "banded hammer curls",
+    "banded concentration curls",
 ]
 
 # legs
@@ -128,6 +137,8 @@ workouts_for_legs = [
     "squat hold",
     "bodyweight squat",
     "weighted jump squat",
+    "banded reverse lunges",
+    "banded lunges",
 ]
 
 workouts_for_glutes = [
@@ -139,6 +150,12 @@ workouts_for_glutes = [
     "single-leg bench hip thrust",
     "dumbell good morning",
     "barbell good morning",
+    "banded glute kickback",
+    "banded glute bridge",
+    "banded romanian deadlift",
+    "banded abductors",
+    "banded good morning",
+    "banded donkey kicks",
 ]
 
 workouts_for_groin = [
@@ -202,6 +219,8 @@ workouts_for_calves = [
     "single-leg calf raises",
     "calf raise machine",
     "heel raises",
+    "banded calf raises",
+    "donkey calf raises",
 ]
 
 # abdomen

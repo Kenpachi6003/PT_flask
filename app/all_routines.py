@@ -134,8 +134,8 @@ routines = {
             "banded glute kickback",
             "banded glute bridge",
             "banded romanian deadlift",
-            "banded abductors"
-            "plank"
+            "banded abductors",
+            "plank",
         ],
         "Arms": [
             "banded lateral raises",
