@@ -128,4 +128,47 @@ routines = {
             "seated straght bar curl",
         ],
     },
+    "Banded_routine_glute_focused": {
+        "Glutes": [
+            "banded squat",
+            "banded glute kickback",
+            "banded glute bridge",
+            "banded romanian deadlift",
+            "banded abductors"
+            "plank"
+        ],
+        "Arms": [
+            "banded lateral raises",
+            "banded bicep curls",
+            "banded hammer curls",
+            "banded concentration curls",
+            "banded overhead tricep extension",
+            "banded tricep kickbacks",
+            "bicycle crunch"
+        ],
+        "Legs": [
+            "banded squat",
+            "banded good morning",
+            "banded reverse lunges",
+            "banded donkey kicks",
+            "banded calf raises",
+            "scissor kicks"
+        ],
+        "Chest and Back": [
+            "banded shoulder press",
+            "banded floor press",
+            "banded chest flyes",
+            "banded bentover row",
+            "banded reverse flyes",
+            "superman",
+        ],
+        "Glutes and core": [
+            "banded squat",
+            "banded bridges",
+            "banded lunges",
+            "donkey calf raises",
+            "plank",
+            "leg raises",
+        ]
+    },
 }

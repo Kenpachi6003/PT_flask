@@ -7,7 +7,6 @@ body{
 
 .container{
     text-align: center;
-
 }
 
 h1 {
@@ -15,47 +14,50 @@ h1 {
 }
 
 .basic-info p input {
-        
     height: auto;   
     width: auto;
     font-size: 24px;
-    
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .create-account-btn, .login-btn {
     padding: 16px 32px;
     font-size: 24px;
     margin-bottom: 15px;
-    
     border: none;
     border-radius: 5px;
     background-color: black;
     color: white;
     cursor: pointer;
-    transition: all 0.5s ease; /* Smooth transition for resizing */
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
-.create-account-btn:hover, .login-btn:hover {
+
+.create-account-btn:hover, .login-btn:hover,
+.create-account-btn:active, .login-btn:active {
     background-color: grey;
     color: white;
 }
 
 .login-link, .create-account-link {
-
     font-size: 20px;
     color: black;
+    text-decoration: none;
 }
-
 
 @media screen and (max-width: 599px) {
     h1 {
         font-size: 25px;
     }
+    
     .basic-info p input {
-        
-        
         width: 200px;
         font-size: 15px;
-        
+        padding: 10px;
     }
 
     .login-link, .create-account-link {
@@ -67,9 +69,14 @@ h1 {
 
     .create-account-btn, .login-btn {
         font-size: 14px;
-        padding: 8px 16px;
-        margin-left: 10px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        padding: 12px 24px;
+        margin: 10px auto;
+        display: block;
+        width: 80%;
+        max-width: 200px;
+    }
+    
+    .submit-btn {
+        margin: 20px 0;
     }
 }
