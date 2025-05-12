@@ -1,3 +1,7 @@
+"""
+This file is used to create the routine names for the routine model.
+"""
+
 import os
 
 PT_flask = os.environ["PWD"]
@@ -19,8 +23,13 @@ def make_routine_name(model, routine_name):
 def main():
     for routine in routines:
 
-        routine_name = make_routine_name(Routine, routine)
-        db.session.add(routine_name)
+        routine_in_db = Routine.query.filter_by(routine_name=routine).first()
+        if routine_in_db:
+            print(f"Routine {routine} already exists")
+
+        else:
+            routine_name = make_routine_name(Routine, routine)
+            db.session.add(routine_name)
     db.session.commit()
 
 

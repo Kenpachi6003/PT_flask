@@ -9,6 +9,7 @@ from flask_login import (
 )
 from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
+from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 
@@ -50,8 +51,8 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
-app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 # Email configuration
@@ -66,6 +67,7 @@ app.config['SECRET_KEY'] = 'loka1234'
 
 # app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+migrate = Migrate(app, db)
 db.init_app(app)
 
 # Initialize admin views with error handling
@@ -216,6 +218,7 @@ def logout():
 
 @app.route("/about_me")
 def about_me():
+    
 
     return render_template("about_me.html", about_me_vid=about_me_loop_vid("push ups"))
 
