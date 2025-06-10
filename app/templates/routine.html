@@ -19,7 +19,7 @@
                 {% for workout, workout_link in workouts.items()%}
             <div>
                 <ul>
-                <li><a class="video-link" data-video-url="{{workout_link}}">{{workout.title()}}</a></li>
+                <li><a class="video-link" data-video-url="{{workout_link[0]}}">{{workout.title()}}</a></li>
                 </ul>
                 
             </div>

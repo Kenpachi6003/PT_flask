@@ -39,15 +39,16 @@ def list_of_videos():
 
     return videos
 
-
-def filter_video_name(video_name):
+def filter_video_name(video_name, folder_name):
     delimiters = [
-        "https://causey.s3.us-east-2.amazonaws.com/workout_vids/",
+        "https://causey.s3.us-east-2.amazonaws.com/"+ f"{folder_name}" + "/",
         ".mov",
         ".MOV",
         ".mp4",
         "_",
+        ".JPG",
     ]
+    
     for delimiter in delimiters:
         if delimiter in video_name:
             video_name = " ".join(video_name.split(delimiter))
@@ -55,12 +56,12 @@ def filter_video_name(video_name):
     return video_name.strip()
 
 
-def video_to_add_to_model(workout_name, videos):
+def video_to_add_to_model(workout_name, videos, folder_name):
     video_name = ""
 
     for video in videos:
 
-        if workout_name == filter_video_name(video):
+        if workout_name == filter_video_name(video, folder_name):
             video_name = video
 
     return video_name
@@ -77,8 +78,8 @@ def add_links_to_routine_days(day, workouts_model):
     for workout in workouts_model:
         if workout.workout_name in days:
 
-            routine_workouts[workout.workout_name] = workout.workout_link
-
+            routine_workouts[workout.workout_name] = [workout.workout_link, workout.workout_pic_link]
+    
     return routine_workouts
 
 
@@ -102,7 +103,8 @@ def add_workouts_to_model(model, workout_names, body_part, muscle_targeted, vide
             workout_name=workout_name,
             body_part=body_part,
             muscle_targeted=muscle_targeted,
-            workout_link=video_to_add_to_model(workout_name, list_of_videos()),
+            workout_link=video_to_add_to_model(workout_name, list_of_videos(), "workout_vids"),
+            workout_pic_link=video_to_add_to_model(workout_name, list_of_videos(), "workout_pics"),
         )
 
         db.session.add(workout)
@@ -114,7 +116,7 @@ def about_me_loop_vid(video_name):
     
     for video in list_of_videos():
        
-        if filter_video_name(video) == video_name:
+        if filter_video_name(video, "workout_vids") == video_name:
             video_link = video
   
     return video_link

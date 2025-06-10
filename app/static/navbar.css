@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding-top: 80px; /* Add padding to prevent content from hiding behind navbar */
 }
 
 .navbar {
@@ -11,6 +12,11 @@ body {
     background-color: #333;
     overflow: hidden;
     align-items: center;
+    position: fixed; /* Fix the navbar */
+    top: 0; /* Stick to the top */
+    left: 0; /* Align to the left */
+    right: 0; /* Stretch to the right */
+    z-index: 1000; /* Ensure navbar stays on top */
 }
 
 .navbar a {
@@ -64,7 +70,7 @@ body {
         font-size: 15px;
     }
 
-    /* Show the menu when it’s toggled */
+    /* Show the menu when it's toggled */
     .navbar .menu.active {
         display: flex;
     }

@@ -51,8 +51,8 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
-app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 # Email configuration
@@ -110,10 +110,11 @@ def play_video():
         if request.method == "POST":
             return redirect(url_for("day"))
         else:
+            
             return render_template(
                 "play_video.html",
                 video_url=video_url,
-                workout_name=filter_video_name(video_url),
+                workout_name=filter_video_name(video_url, "workout_vids"),
             )
 
     return redirect(url_for("login"))
@@ -247,7 +248,7 @@ def day():
 
         day = Day_of_routine.query.filter_by(id=user.current_day_id).first()
         workout_day = add_links_to_routine_days(day, Workouts.query.all())
-
+        
         return render_template(
             "day.html", workout_day=workout_day, day=day.workout_day_name
         )
@@ -277,19 +278,21 @@ def change_day_id():
 
 @app.route("/contact_us", methods=["POST", "GET"])
 def contact_us():
-
     form = ContactForm()
     if form.validate_on_submit():
-
-        msg = Message(
-            subject="Contact form submission",
-            sender=form.email.data,
-            recipients=["jcruz6003@gmail.com"],
-            body=f"Message from {form.name.data}: n\\{form.message.data}",
-        )
-        mail.send(msg)
-        flash("Message sent succesfully!")
-        redirect(url_for("contact_us"))
+        try:
+            msg = Message(
+                subject="Contact form submission",
+                sender=form.email.data,
+                recipients=["jcruz6003@gmail.com"],
+                body=f"Message from: {form.name.data}\nEmail: {form.email.data}\n\nMessage:\n{form.message.data}"
+            )
+            mail.send(msg)
+            flash("Message sent successfully!", "success")
+            return redirect(url_for("contact_us"))
+        except Exception as e:
+            flash(f"Failed to send message. Please try again. Error: {str(e)}", "error")
+            return redirect(url_for("contact_us"))
 
     return render_template("contact_us.html", form=form)
 

@@ -1,5 +1,6 @@
 body {
-    background-color: #4169e1;
+    background-color: #292033;
+    color: white;
 
 }
 h1 {
@@ -21,7 +22,7 @@ li a, ul {
     justify-content: center;  /* Center horizontally */
     align-items: center; 
     cursor: pointer;
-    color: black;
+    color: white;
     font-size: 24px;
 }
 

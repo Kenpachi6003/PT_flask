@@ -23,6 +23,7 @@ class Workouts(db.Model):
     body_part = db.Column(db.String)
     muscle_targeted = db.Column(db.String, nullable=True)
     workout_link = db.Column(db.String, nullable=True)
+    workout_pic_link = db.Column(db.String, nullable=True)
 
 
 class WorkoutForm(Form):
@@ -30,10 +31,11 @@ class WorkoutForm(Form):
     body_part = StringField('Body Part', validators=[DataRequired()])
     muscle_targeted = StringField('Muscle Targeted', validators=[Optional()])
     workout_link = StringField('Workout Link', validators=[Optional()])
+    workout_pic_link = StringField('Workout PIC', validators=[Optional()])
 
 
 class WorkoutsView(ModelView):
-    column_list = ["id", "workout_name", "body_part", "muscle_targeted", "workout_link"]
+    column_list = ["id", "workout_name", "body_part", "muscle_targeted", "workout_link", "workout_pic_link"]
     column_searchable_list = ["workout_name", "muscle_targeted"]
     form = WorkoutForm
 
@@ -154,7 +156,7 @@ class UserProgressForm(Form):
 
 
 class UserProgressView(ModelView):
-    column_list = ["id", "sets"]
+    column_list = ["id", "sets", "reps", "weight_lifted", "date"]
     form = UserProgressForm
 
     def is_accessible(self):
