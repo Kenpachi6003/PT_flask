@@ -145,6 +145,57 @@ p{
     }
     .exercise-card {
         width: 95%; /* Slightly wider on mobile for better use of space */
+        flex-direction: column; /* Stack image and text vertically on mobile */
+        padding: 12px; /* Reduce padding */
+        margin: 12px 0;
+    }
+    .exercise-image {
+        width: 80px; /* Smaller image on mobile */
+        height: auto;
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 12px; /* Add bottom margin */
+    }
+    .exercise-info {
+        margin-left: 0; /* Remove left margin */
+        align-items: center; /* Center text on mobile */
+        text-align: center;
+        width: 100%; /* Full width */
+    }
+    .exercise-title {
+        font-size: 1rem; /* Smaller title on mobile */
+        margin: 0 0 6px;
+        word-wrap: break-word; /* Allow text to wrap */
+        overflow-wrap: break-word;
+        hyphens: auto; /* Enable hyphenation */
+    }
+    .exercise-sets,
+    .exercise-reps {
+        font-size: 0.8rem; /* Smaller text on mobile */
+        margin: 2px 0;
+    }
+}
+
+/* Extra small screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    .exercise-card {
+        width: 98%; /* Almost full width on very small screens */
+        padding: 10px;
+    }
+    .exercise-image {
+        width: 70px; /* Even smaller image */
+    }
+    .exercise-title {
+        font-size: 0.9rem;
+    }
+    .exercise-sets,
+    .exercise-reps {
+        font-size: 0.75rem;
+    }
+    .day_title {
+        font-size: 24px;
+    }
+    p {
+        font-size: 12px;
     }
 }
 

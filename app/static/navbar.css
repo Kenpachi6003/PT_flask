@@ -53,6 +53,11 @@ body {
         display: none; /* Hide the menu */
         flex-direction: column; /* Stack the links */
         width: 100%; /* Take up full width */
+        position: absolute;
+        top: 100%; /* Position below navbar */
+        left: 0;
+        background-color: #333;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .navbar .icon {
@@ -65,13 +70,30 @@ body {
 
     .navbar .menu a {
         text-align: left;
-        padding: 10px 20px;
-        border-bottom: 1px solid #ddd;
-        font-size: 15px;
+        padding: 15px 20px; /* Increased padding for better touch targets */
+        border-bottom: 1px solid #555;
+        font-size: 18px; /* Increased font size for better readability */
+        white-space: nowrap; /* Prevent text wrapping */
+        overflow: visible; /* Ensure text is fully visible */
+        text-overflow: unset; /* Remove text truncation */
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Include padding in width calculation */
     }
 
     /* Show the menu when it's toggled */
     .navbar .menu.active {
         display: flex;
+    }
+}
+
+/* Additional iPhone-specific adjustments */
+@media screen and (max-width: 375px) {
+    .navbar .menu a {
+        font-size: 16px; /* Slightly smaller for very small screens */
+        padding: 12px 15px;
+    }
+    
+    .navbar .brand {
+        font-size: 32px; /* Smaller brand name for small screens */
     }
 }
