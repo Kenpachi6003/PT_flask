@@ -3,6 +3,7 @@
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
+<title>Login Page</title>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_account.css')}}">
 {% with messages = get_flashed_messages() %}
     {%if messages%}

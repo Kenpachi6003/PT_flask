@@ -129,7 +129,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username.lower()).first()
         if user and user.password == password:
             session["user_id"] = user.id
 
