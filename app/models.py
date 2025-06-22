@@ -77,8 +77,8 @@ class User(UserMixin, db.Model):
     role = db.Column(db.String(50))
     level = db.Column(db.String)
     days_logged_in = db.Column(db.Integer)
-    
     user_routine = db.Column(db.Integer, db.ForeignKey("routine.id"))
+    progress = db.relationship("UserProgress", back_populates="user", lazy=True)
 
 
 class UserForm(Form):
@@ -109,6 +109,7 @@ class UserView(ModelView):
         "level",
         "days_logged_in",
         "routine_change_date",
+        "progress"
     ]
     
     form = UserForm
@@ -149,6 +150,8 @@ class UserProgress(db.Model):
     reps = db.Column(db.Integer)
     weight_lifted = db.Column(db.Integer)
     date = db.Column(db.Date)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relationship("User", back_populates="progress")
 
 
 class UserProgressForm(Form):

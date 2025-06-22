@@ -29,6 +29,16 @@ video {
     width: 400px;
 }  
 
+.description {
+    color: white;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+    padding: 0 20px;
+}
+
 .return-btn {
     padding: 30px 40px;
     font-size: 24px;
@@ -52,6 +62,12 @@ video {
     .video {
         background-color: red;
         
+    }
+
+    .description {
+        font-size: 16px;
+        margin: 15px auto;
+        padding: 0 15px;
     }
 
     .return-btn {
