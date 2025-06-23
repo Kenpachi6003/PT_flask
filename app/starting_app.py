@@ -51,8 +51,8 @@ from app.user_functions import user_exists, create_user
 
 load_dotenv()
 app = Flask(__name__)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
-app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ptraining.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] ='sqlite:////home/ec2-user/PT_flask/app/ptraining.db'
 admin = Admin(app, index_view=MyAdminIndexView())
 
 # Email configuration
@@ -137,8 +137,9 @@ def login():
 
             if user.role == None:
                 routine = Routine.query.filter_by(id=user.user_routine).first()
-
+                
                 session["beginning_day"] = routine.workouts[0].id
+                
                 user.days_logged_in += 1
                 db.session.commit()
                 flash("Login succesful!")
@@ -245,7 +246,7 @@ def day():
         if user.current_day_id == None:
             user.current_day_id = session["beginning_day"]
             db.session.commit()
-
+        
         day = Day_of_routine.query.filter_by(id=user.current_day_id).first()
         workout_day = add_links_to_routine_days(day, Workouts.query.all())
         
@@ -263,7 +264,7 @@ def change_day_id():
     routine = Routine.query.filter_by(id=user.user_routine).first()
 
     if user.current_day_id >= routine.workouts[0].id + 3:
-        user.current_day_id = session["beginning_day"]
+        user.current_day_id = routine.workouts[0].id
     else:
         user.current_day_id = user.current_day_id + 1
     # we will be adding a for loop right here
